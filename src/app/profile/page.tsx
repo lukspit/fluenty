@@ -35,6 +35,10 @@ export default function ProfileScreen() {
   const [interests, setInterests] = useState<string[]>([]);
   const [tutorTone, setTutorTone] = useState<string>("friendly");
 
+  // Status de Assinatura (Stripe)
+  const [isPremium, setIsPremium] = useState<boolean>(false);
+  const [subscribing, setSubscribing] = useState<boolean>(false);
+
   // Cópias de backup para detectar se houve alteração na trilha
   const [origLevel, setOrigLevel] = useState<string>("");
   const [origObjective, setOrigObjective] = useState<string>("");
@@ -56,7 +60,7 @@ export default function ProfileScreen() {
         // Buscar dados do perfil
         const { data: profile, error } = await supabase
           .from("profiles")
-          .select("name, streak, english_level, learning_objective, interests, tutor_tone")
+          .select("name, streak, english_level, learning_objective, interests, tutor_tone, is_premium")
           .eq("id", session.user.id)
           .single();
 
@@ -84,6 +88,7 @@ export default function ProfileScreen() {
           setOccupation(occVal);
           setInterests(interestsVal);
           setTutorTone(toneVal);
+          setIsPremium(profile.is_premium || false);
 
           // Backup
           setOrigLevel(levelVal);
@@ -107,6 +112,42 @@ export default function ProfileScreen() {
       setInterests(interests.filter((i) => i !== topic));
     } else {
       setInterests([...interests, topic]);
+    }
+  };
+
+  const handleSubscribe = async () => {
+    setSubscribing(true);
+    setErrorMsg(null);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+        return;
+      }
+
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${session.access_token}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error("Falha ao iniciar checkout no Stripe.");
+      }
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("URL de checkout inválida.");
+      }
+    } catch (err: any) {
+      console.error("Erro ao redirecionar para assinatura:", err);
+      setErrorMsg(err.message || "Não foi possível conectar com o Stripe no momento.");
+      setSubscribing(false);
     }
   };
 
@@ -425,15 +466,36 @@ export default function ProfileScreen() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-muted-text">
                   Assinatura
                 </span>
-                <span className="text-xs font-black text-white flex items-center gap-1">
-                  Fluenty Pro
-                  <span className="text-[8px] bg-primary/20 text-primary border border-primary/30 px-1.5 py-0.5 rounded-full uppercase leading-none font-bold scale-90 origin-left">
-                    Ativo
+                {isPremium ? (
+                  <span className="text-xs font-black text-white flex items-center gap-1">
+                    Fluenty Pro
+                    <span className="text-[8px] bg-primary/20 text-primary border border-primary/30 px-1.5 py-0.5 rounded-full uppercase leading-none font-bold scale-90 origin-left">
+                      Ativo
+                    </span>
                   </span>
-                </span>
+                ) : (
+                  <span className="text-xs font-black text-white flex items-center gap-1">
+                    Plano Free
+                    <span className="text-[8px] bg-muted-slate/25 text-muted-text border border-muted-slate/20 px-1.5 py-0.5 rounded-full uppercase leading-none font-bold scale-90 origin-left">
+                      Grátis
+                    </span>
+                  </span>
+                )}
               </div>
             </div>
           </div>
+
+          {/* Botão de Assinatura Pro se for Free */}
+          {!isPremium && (
+            <button
+              onClick={handleSubscribe}
+              disabled={subscribing}
+              className="w-full mt-1.5 py-3.5 bg-primary text-background font-black uppercase tracking-widest text-[10px] rounded-xl shadow-[0_0_15px_rgba(204,255,0,0.15)] hover:bg-primary-hover transition duration-300 flex items-center justify-center gap-2 border border-primary/25 disabled:opacity-40"
+            >
+              <SparklesIcon size={12} className="text-background animate-pulse" />
+              <span>{subscribing ? "Conectando ao Stripe..." : "Assinar Fluenty Pro (R$ 29,90/mês)"}</span>
+            </button>
+          )}
         </section>
 
         {/* Sessão 2: Preferências Pedagógicas */}
