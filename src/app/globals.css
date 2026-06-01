@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0B0B0C;
+  --foreground: #FFFFFF;
+  --primary: #CCFF00;
+  --primary-hover: #B2DF00;
+  --muted-slate: #2A2B2E;
+  --muted-text: #8E8F94;
+  --card-bg: rgba(22, 23, 26, 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-muted-slate: var(--muted-slate);
+  --color-muted-text: var(--muted-text);
+  --color-card-bg: var(--card-bg);
+  --font-sans: var(--font-plus-jakarta-sans), var(--font-geist-sans), sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Remover barra de rolagem horizontal acidental */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Espectro de áudio vertical (Frente de gravação/fala) */
+@keyframes voice-pulse {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes voice-breath {
+  0%, 100% {
+    transform: scaleY(0.15);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(0.55);
+    opacity: 0.75;
+  }
+}
+
+.voice-bar {
+  animation: voice-pulse 1.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Efeito Ripple / Onda Concêntrica de Chamada (Fase 11) */
+@keyframes ripple {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.ripple-ring {
+  position: absolute;
+  border: 1px solid rgba(204, 255, 0, 0.25);
+  border-radius: 9999px;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ripple-1 {
+  animation: ripple 3s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+}
+
+.ripple-2 {
+  animation: ripple 3s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+  animation-delay: 1s;
+}
+
+.ripple-3 {
+  animation: ripple 3s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+  animation-delay: 2s;
+}
+
+/* Classes de Utilidades de Design Premium */
+.premium-card {
+  background: var(--card-bg);
+  border: 0.5px solid rgba(42, 43, 46, 0.5);
+  backdrop-filter: blur(16px);
+}
+
+.premium-card-active {
+  background: rgba(22, 23, 26, 0.8);
+  border: 0.5px solid var(--primary);
+  box-shadow: 0 0 16px rgba(204, 255, 0, 0.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(142, 143, 148, 0.2);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(142, 143, 148, 0.4);
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Fluenty - Speak Up!",
+  "short_name": "Fluenty",
+  "description": "Seu companheiro de IA para praticar conversação de idiomas sem medo e com atrito zero.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0C",
+  "theme_color": "#0B0B0C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
