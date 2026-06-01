@@ -7,6 +7,5 @@ if (!stripeSecretKey) {
 }
 
 export const stripe = new Stripe(stripeSecretKey || "", {
-  apiVersion: "2024-11-20.accommodate-sdk-in-node" as any,
   typescript: true,
 });
