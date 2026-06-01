@@ -41,7 +41,8 @@ export default function SubscribeScreen() {
       });
 
       if (!res.ok) {
-        throw new Error("Erro ao iniciar o checkout com o Stripe.");
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Erro ao iniciar o checkout com o Stripe.");
       }
 
       const data = await res.json();
