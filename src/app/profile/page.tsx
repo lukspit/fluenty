@@ -31,12 +31,14 @@ export default function ProfileScreen() {
   // Preferências Pedagógicas (Onboarding)
   const [englishLevel, setEnglishLevel] = useState<string>("Intermediate");
   const [objective, setObjective] = useState<string>("Business");
+  const [occupation, setOccupation] = useState<string>("");
   const [interests, setInterests] = useState<string[]>([]);
   const [tutorTone, setTutorTone] = useState<string>("friendly");
 
   // Cópias de backup para detectar se houve alteração na trilha
   const [origLevel, setOrigLevel] = useState<string>("");
   const [origObjective, setOrigObjective] = useState<string>("");
+  const [origOccupation, setOrigOccupation] = useState<string>("");
   const [origInterests, setOrigInterests] = useState<string[]>([]);
 
   useEffect(() => {
@@ -65,18 +67,28 @@ export default function ProfileScreen() {
           setStreak(profile.streak || 0);
           
           const levelVal = profile.english_level || "Intermediate";
-          const objVal = profile.learning_objective || "Business";
+          const rawObjective = profile.learning_objective || "Business";
           const interestsVal = profile.interests || [];
           const toneVal = profile.tutor_tone || "friendly";
 
+          let objVal = rawObjective;
+          let occVal = "";
+          if (rawObjective.includes(": ")) {
+            const parts = rawObjective.split(": ");
+            objVal = parts[0];
+            occVal = parts[1] || "";
+          }
+
           setEnglishLevel(levelVal);
           setObjective(objVal);
+          setOccupation(occVal);
           setInterests(interestsVal);
           setTutorTone(toneVal);
 
           // Backup
           setOrigLevel(levelVal);
           setOrigObjective(objVal);
+          setOrigOccupation(occVal);
           setOrigInterests(interestsVal);
         }
       } catch (err: any) {
@@ -107,9 +119,15 @@ export default function ProfileScreen() {
       if (!userName.trim()) {
         throw new Error("O nome de usuário não pode ficar em branco.");
       }
+      if (!occupation.trim()) {
+        throw new Error("O campo de profissão não pode ficar vazio.");
+      }
       if (interests.length === 0) {
         throw new Error("Por favor, selecione pelo menos um tema de interesse.");
       }
+
+      // Serializar objetivos + profissão
+      const objectiveValue = objective + ": " + occupation.trim();
 
       // Atualizar no banco
       const { error } = await supabase
@@ -117,7 +135,7 @@ export default function ProfileScreen() {
         .update({
           name: userName,
           english_level: englishLevel,
-          learning_objective: objective,
+          learning_objective: objectiveValue,
           interests: interests,
           tutor_tone: tutorTone,
           updated_at: new Date().toISOString()
@@ -129,11 +147,12 @@ export default function ProfileScreen() {
       // Detectar se houve mudanças fundamentais na trilha de aprendizado
       const hasLevelChanged = englishLevel !== origLevel;
       const hasObjectiveChanged = objective !== origObjective;
+      const hasOccupationChanged = occupation !== origOccupation;
       const hasInterestsChanged = 
         interests.length !== origInterests.length || 
         !interests.every((val) => origInterests.includes(val));
 
-      if (hasLevelChanged || hasObjectiveChanged || hasInterestsChanged) {
+      if (hasLevelChanged || hasObjectiveChanged || hasOccupationChanged || hasInterestsChanged) {
         // Solicitar se deseja regerar a trilha de fases
         setShowRegenModal(true);
       } else {
@@ -184,6 +203,7 @@ export default function ProfileScreen() {
       // Atualiza backups
       setOrigLevel(englishLevel);
       setOrigObjective(objective);
+      setOrigOccupation(occupation);
       setOrigInterests(interests);
 
       setSuccessMsg("Sua nova jornada personalizada foi gerada com sucesso! Redirecionando...");
@@ -481,6 +501,20 @@ export default function ProfileScreen() {
             </div>
           </div>
 
+          {/* Profissão/Cargo */}
+          <div className="flex flex-col gap-2">
+            <label className="text-[9px] font-bold uppercase tracking-widest text-muted-text">
+              Sua Profissão ou Área
+            </label>
+            <input
+              type="text"
+              value={occupation}
+              onChange={(e) => setOccupation(e.target.value)}
+              className="bg-background/50 border border-muted-slate/20 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-primary transition"
+              placeholder="Ex: Software Developer, UX Designer..."
+            />
+          </div>
+
           {/* Interesses */}
           <div className="flex flex-col gap-2">
             <span className="text-[9px] font-bold uppercase tracking-widest text-muted-text">
@@ -569,7 +603,7 @@ export default function ProfileScreen() {
                 Regerar sua Trilha?
               </h3>
               <p className="text-xs text-muted-text leading-relaxed">
-                Você alterou dados de aprendizado (Nível, Objetivos ou Interesses). Gostaria de regerar suas 5 fases do roadmap personalizando de acordo com as novas preferências?
+                Você alterou dados de aprendizado (Nível, Objetivos, Profissão ou Interesses). Gostaria de regerar suas 5 fases do roadmap personalizando de acordo com as novas preferências?
               </p>
               <p className="text-[10px] text-yellow-500/80 font-bold bg-yellow-500/5 border border-yellow-500/10 rounded-lg p-2.5 mt-1 leading-normal">
                 Aviso: Isso irá regerar a sua jornada pedagógica, apagando o progresso atual.

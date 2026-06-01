@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Fallbacks de fases mockadas caso a OpenRouter API Key não esteja disponível
-function getMockPath(level: string, objective: string, interests: string[], userId: string) {
+function getMockPath(level: string, objective: string, interests: string[], userId: string, occupation?: string) {
   const interestsStr = interests.length > 0 ? interests.join(", ") : "Geral";
-  const trackName = "Primeiros Passos com Conversação";
+  const trackName = occupation ? `Inglês para ${occupation}` : "Primeiros Passos com Conversação";
   return [
     {
       user_id: userId,
       phase_number: 1,
       title: "Fase 1: Introdução Básica",
-      description: `Apresente-se ao seu tutor focado no objetivo de ${objective} e mencione seu interesse em ${interestsStr}.`,
+      description: `Apresente-se ao seu tutor focado no objetivo de ${objective}${occupation ? ` como ${occupation}` : ""} e mencione seu interesse em ${interestsStr}.`,
       scenario_key: "casual",
-      system_instructions: `You are a friendly personal tutor. Talk to the user at a ${level} level. Introduce yourself and ask the user about their day, their interest in ${interestsStr}, and their goals in English. Be welcoming.`,
+      system_instructions: `You are a friendly personal tutor. Talk to the user at a ${level} level. Introduce yourself and ask the user about their day, their interest in ${interestsStr}, their career${occupation ? ` as a ${occupation}` : ""}, and their goals in English. Be welcoming.`,
       status: "unlocked",
       score_needed: 70,
       track_name: trackName
@@ -104,8 +104,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const rawObjective = profile.learning_objective || "Daily Conversation";
+    let objective = rawObjective;
+    let occupation = "";
+
+    // Se contiver o padrão "Objetivos: Profissão", faz o split
+    if (rawObjective.includes(": ")) {
+      const parts = rawObjective.split(": ");
+      objective = parts[0];
+      occupation = parts[1] || "";
+    }
+
     const level = profile.english_level || "Intermediate";
-    const objective = profile.learning_objective || "Daily Conversation";
     const interests = profile.interests || [];
     const apiKey = process.env.OPENROUTER_API_KEY;
 
@@ -114,7 +124,7 @@ export async function POST(req: NextRequest) {
     // --- SE NÃO HOUVER API KEY: GERAR MOCK ---
     if (!apiKey) {
       console.warn("OPENROUTER_API_KEY não configurada. Gerando caminho mockado.");
-      pathFases = getMockPath(level, objective, interests, userId);
+      pathFases = getMockPath(level, objective, interests, userId, occupation);
     } else {
       // --- GERAR VIA IA GEMINI ---
       try {
@@ -122,12 +132,17 @@ export async function POST(req: NextRequest) {
         const systemPrompt = `Você é um coordenador pedagógico de inglês altamente experiente.
 O usuário possui o seguinte perfil de aprendizado:
 - Nível de inglês: ${level}
-- Objetivo principal: ${objective}
+- Objetivos principais: ${objective}
+${occupation ? `- Cargo/Profissão: ${occupation}` : ""}
 - Temas de interesse: ${interestsStr}
 
 Gere uma trilha de aprendizado de conversação por voz sob medida contendo exatamente 5 lições progressivas (fases de 1 a 5).
-As lições devem ir aumentando de complexidade e devem ser muito focadas nos objetivos e interesses do usuário.
-Além disso, crie um nome geral marcante e atraente em Português do Brasil para esta primeira trilha (ex: "Trocando ideias sobre tecnologia", "Inglês para Negócios", "Sobrevivência em Nova York").
+As lições devem ir aumentando de complexidade e devem ser muito focadas nos objetivos, na profissão e nos interesses do usuário.
+
+${occupation ? `IMPORTANTE - CARGO DO USUÁRIO (${occupation}):
+Como o usuário informou o cargo/profissão '${occupation}', você DEVE obrigatoriamente fazer com que as fases corporativas (especialmente roleplays de 'meeting' ou 'interview') simulem o cotidiano de trabalho real dessa profissão.
+- Se ele for da área de tecnologia (ex: Software Developer, Product Designer, Project Manager), os diálogos devem discutir sprints, dailies, deploy, wireframes, roadmaps, code reviews ou bugs reais do cargo.
+- Adapte para qualquer outra profissão que ele informe de forma muito natural e tecnicamente precisa, usando jargões adequados da indústria no prompt em inglês do roleplay.` : ""}
 
 Para cada fase, defina:
 1. phase_number: número inteiro de 1 a 5.
@@ -162,7 +177,7 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido, sem qualquer markdown envolta (co
             model: "google/gemini-2.5-flash",
             messages: [
               { role: "system", content: systemPrompt },
-              { role: "user", content: `Gere o caminho personalizado para nível ${level}, objetivo ${objective} e interesses ${interestsStr}.` }
+              { role: "user", content: `Gere o caminho personalizado para nível ${level}, objetivos ${objective}${occupation ? ` e profissão ${occupation}` : ""} com interesses ${interestsStr}.` }
             ]
           })
         });
