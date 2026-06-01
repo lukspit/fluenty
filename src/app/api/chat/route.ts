@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   try {
     const { audio, format, history, scenario, init, pathId, text } = await req.json();
     const apiKey = process.env.OPENROUTER_API_KEY;
-    const selectedScenario = scenario || "casual";
+    let selectedScenario = scenario || "casual";
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -62,12 +62,15 @@ export async function POST(req: NextRequest) {
         if (pathId) {
           const { data: phaseData } = await supabase
             .from("fluenty_learning_paths")
-            .select("title, system_instructions")
+            .select("title, system_instructions, scenario_key")
             .eq("id", pathId)
             .single();
           if (phaseData) {
             phaseInstructions = phaseData.system_instructions;
             phaseTitle = phaseData.title;
+            if (phaseData.scenario_key) {
+              selectedScenario = phaseData.scenario_key;
+            }
           }
         }
       } catch (e) {
@@ -116,11 +119,13 @@ export async function POST(req: NextRequest) {
     };
     systemPrompt += `${levelGuidelines[level] || levelGuidelines.Intermediate}\n`;
     
-    // 5. Diretrizes Pedagógicas Conversacionais (Recasting e Fluidez)
+    // 5. Diretrizes Pedagógicas Conversacionais (Recasting, Naturalidade e Proatividade)
     systemPrompt += `
 PEDAGOGICAL & CONVERSATIONAL RULES:
 - Recasting (Subtle & Occasional): If the user makes an obvious grammatical mistake, you may OCCASIONALLY and very subtly model the correct phrasing in your next response. Do NOT do this on every sentence, and only do it if it fits naturally in the conversation. Focus entirely on keeping the chat flow organic, active, and fun. Never act like a lecturing teacher.
 - Flow & Connection: Prioritize natural conversation and connection. Avoid lecturing or acting like a textbook. Speak like a real native speaker would in this scenario, using common contractions (don't, we're, I'll, etc.) suitable for a ${level} speaker.
+- Conversational Proactivity & Roleplay Guidance: Actively drive the conversation according to your roleplay role and phase objective. Do not be a passive "yes man" who just agrees with everything and asks a generic question. If you are a recruiter, challenge their statements; if you are a barista, introduce situational changes (e.g. "We are out of oat milk, would you like almond instead?"); if you are a friend, share short, opinionated responses.
+- User Name Limitation: DO NOT address the user by their name (${name}) in every response. It feels highly robotic and unnatural. You may use their name at most ONCE during the entire conversation (preferably only in the initial greeting). In all other messages, speak to them naturally without repeating their name.
 - Elaboration Prompting: Keep the conversation rolling by asking relevant questions. If the user gives a very short answer, gently ask follow-up questions to prompt them to expand.
 `;
 
@@ -294,7 +299,7 @@ PEDAGOGICAL & CONVERSATIONAL RULES:
     const conversationSystemPrompt = systemPrompt + 
       `\nIMPORTANT: The conversation is already in progress. You have already introduced yourself. Under no circumstances should you greet the user again, say your name (like 'I am Alex' or 'I am Sarah'), or say welcome/introductory lines. Focus strictly on continuing the dialogue naturally.\n` +
       `\n${dynamicLengthGuideline}\n` +
-      `CRITICAL: Under no circumstances write bullet points, long paragraphs, or lists. Maximum response limit is 40 words for Intermediate levels and 50 words for Advanced levels. Always ask exactly one direct, engaging question at the end to keep the flow.`;
+      `CRITICAL: Under no circumstances write bullet points, long paragraphs, or lists. Maximum response limit is 40 words for Intermediate levels and 50 words for Advanced levels. Keep the conversation dynamic. DO NOT end every single reply with a mechanical question; end with statements, opinions, or prompts when it feels more natural and human.`;
 
     const messages = [
       { role: "system", content: conversationSystemPrompt },

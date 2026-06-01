@@ -275,6 +275,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Bloqueio de Sessão Curta/Vazia: se o usuário falou menos de 2 vezes
+    const userMessagesCount = history.filter((msg: any) => msg.sender === "user").length;
+    if (userMessagesCount < 2) {
+      return NextResponse.json({
+        isShortSession: true,
+        message: "Não identificamos conteúdo de fala suficiente nesta sessão para gerar uma análise detalhada. Que tal conversar um pouco mais com o tutor na próxima tentativa?"
+      });
+    }
+
     const apiKey = process.env.OPENROUTER_API_KEY;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -341,7 +350,7 @@ export async function POST(req: NextRequest) {
         .map((msg: { sender: string; text: string }) => `${msg.sender === "user" ? "USER" : "AI"}: ${msg.text}`)
         .join("\n");
 
-      const systemPrompt = `Você é um avaliador de proficiência em inglês experiente e amigável.
+      const systemPrompt = `Você é um avaliador de proficiência em inglês extremamente sincero, experiente e focado em testes reais de conversação (como IELTS e escala CEFR).
 Seu objetivo é analisar a transcrição de uma chamada de conversação entre o Usuário (USER) e a IA (AI) sob uma ótica de inglês nativo falado e fluidez prática.
 
 ANALYSE:
@@ -349,24 +358,25 @@ ANALYSE:
 2. Traduções literais do português ("Portinglês"): Identifique com precisão quando o usuário traduziu estruturas diretamente do português que não soam naturais ou estão erradas em inglês (ex: usar "I have 25 years" em vez de "I'm 25 years old", "take a coffee" em vez de "have/get a coffee", "I'm here for learn" em vez de "I'm here to learn", "near of my house" em vez de "near my house").
 3. Falta de naturalidade (Phrasing Nativo): Identifique frases que estão gramaticalmente toleráveis, mas que um nativo não usaria no dia a dia, sugerindo expressões idiomáticas e colocações mais adequadas ao cenário. Explique isso de forma amigável.
 4. Repetição excessiva de vocabulários básicos e sugira alternativas mais refinadas/nativas aplicadas ao contexto da fala (ex: em vez de usar "very good" toda hora, sugerir "exceptional", "rewarding", "outstanding").
-5. A desenvoltura e fluidez (o usuário desenvolve frases completas e complexas ou responde apenas com monossílabos?).
+5. A desenvoltura e fluidez (o usuário desenvolve frases completas e complexas ou responde apenas com hesitações e frases curtas?).
 
-REGRAS DE NOTA (0 a 100):
-- 90-100: Fluência avançada. Pouquíssimos erros, vocabulário variado, frases longas e naturais.
-- 75-89: Fluência intermediária alta. Comunica-se muito bem, comete alguns erros gramaticais menores, vocabulário adequado mas um pouco repetitivo.
-- 50-74: Fluência intermediária básica. Consegue falar, mas depende de frases simples e comete erros frequentes de tempos verbais ou portinglês.
-- Abaixo de 50: Iniciante. Respostas de uma ou duas palavras, muita dificuldade de formular estruturas completas.
+CRITICAL ACCURACY & HONEST GRADING (0 a 100):
+Be honest and realistic when grading the user. Do not be overly optimistic or polite with the scores. If their speech has frequent grammatical issues, uses basic vocabulary repeatedly, or is fragmented, the score must reflect that (e.g. keep it in the 50-65 range). A score overall above 85% must be reserved ONLY for users who speak with high fluid syntax, native phrasing, and very minor slip-ups.
+- 90-100: Fluência avançada (IELTS 7.5+, C1/C2). Pouquíssimos erros, vocabulário variado, frases longas e naturais.
+- 75-89: Fluência intermediária alta (IELTS 6.0-7.0, B2). Comunica-se muito bem, comete alguns erros gramaticais menores, vocabulário adequado mas um pouco repetitivo.
+- 50-74: Fluência intermediária básica (IELTS 4.5-5.5, B1). Consegue falar, mas depende de frases simples e comete erros frequentes de tempos verbais ou portinglês.
+- Abaixo de 50: Iniciante (A1/A2). Respostas de poucas palavras, muita dificuldade de formular estruturas completas.
 
 Retorne EXCLUSIVAMENTE um objeto JSON válido, sem qualquer tipo de markdown envolta (como \`\`\`json), seguindo exatamente o seguinte schema JSON:
 {
-  "score_overall": número (nota geral),
+  "score_overall": número (nota geral real de fluência),
   "score_grammar": número (nota de gramática),
   "score_vocabulary": número (nota de vocabulário),
   "score_fluency": número (nota de fluidez),
   "corrections": [
     {
-      "original": "frase errada do USER",
-      "corrected": "frase correta sugerida",
+      "original": "segmento exato errado (MÁXIMO 3 a 6 palavras). Não coloque a frase inteira de múltiplas linhas se o erro foi em um pedaço pequeno. Isole apenas o pedaço com erro para que o usuário saiba exatamente onde errou.",
+      "corrected": "segmento exato corrigido e sugerido correspondente",
       "explanation": "explicação curta e didática em Português do Brasil"
     }
   ],
@@ -377,7 +387,7 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido, sem qualquer tipo de markdown env
       "context": "trecho onde foi usada"
     }
   ],
-  "highlights": "texto de elogio amigável focando no que ele fez de bom primeiro, seguido de dicas gentis em Português do Brasil",
+  "highlights": "Análise profunda e detalhada em formato Markdown (com quebra de linhas) sobre os pontos fortes e de melhoria no comportamento de fala, vocabulário e o ritmo de fluência do usuário. Destaque em tópicos (ex: *Ritmo e Hesitação*, *Vícios de Tradução*) o que a fala dele significa e conselhos práticos e gentis em Português do Brasil para superar essas barreiras. Use **negritos** para destacar os títulos dos tópicos.",
   "instagram_card_phrase": "frase de impacto curta e motivadora em Português do Brasil para colocar no story"
 }
 

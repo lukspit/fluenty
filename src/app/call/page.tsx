@@ -553,7 +553,7 @@ function CallContent() {
         body: JSON.stringify({
           text: text,
           history: messagesRef.current,
-          scenario,
+          scenario: activeScenario,
           pathId
         })
       });
@@ -604,7 +604,7 @@ function CallContent() {
           audio: base64Audio,
           format: format,
           history: messagesRef.current,
-          scenario,
+          scenario: activeScenario,
           pathId
         })
       });

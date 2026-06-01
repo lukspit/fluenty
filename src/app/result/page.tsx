@@ -52,6 +52,83 @@ export default function ResultScreen() {
   const [newTrackName, setNewTrackName] = useState("");
   const [oldTrackName, setOldTrackName] = useState("");
 
+  const [isShortSession, setIsShortSession] = useState(false);
+  const [shortSessionMessage, setShortSessionMessage] = useState("");
+
+  const handleRestartCall = () => {
+    const pathId = localStorage.getItem("fluenty_latest_path_id");
+    const scenario = localStorage.getItem("fluenty_latest_scenario") || "casual";
+    if (pathId) {
+      router.push(`/call?pathId=${pathId}`);
+    } else {
+      router.push(`/call?scenario=${scenario}`);
+    }
+  };
+
+  const handleGoToNextPhase = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+        return;
+      }
+      
+      const { data: nextPhase } = await supabase
+        .from("fluenty_learning_paths")
+        .select("id")
+        .eq("user_id", session.user.id)
+        .eq("status", "unlocked")
+        .order("phase_number", { ascending: true })
+        .limit(1)
+        .single();
+        
+      if (nextPhase) {
+        router.push(`/call?pathId=${nextPhase.id}`);
+      } else {
+        router.push("/");
+      }
+    } catch (e) {
+      router.push("/");
+    }
+  };
+
+  const formatBoldText = (text: string) => {
+    if (!text) return "";
+    const parts = text.split(/\*\*([^*]+)\*\*/g);
+    return parts.map((part, i) => i % 2 === 1 ? <strong key={i} className="text-primary font-black">{part}</strong> : part);
+  };
+
+  const renderHighlights = (text: string) => {
+    if (!text) return null;
+    return text.split("\n").map((line, i) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("*")) {
+        const content = trimmed.substring(1).trim();
+        return (
+          <li key={i} className="text-xs leading-relaxed text-foreground/90 font-medium ml-4 list-disc mb-1.5">
+            {formatBoldText(content)}
+          </li>
+        );
+      }
+      if (trimmed.startsWith("-")) {
+        const content = trimmed.substring(1).trim();
+        return (
+          <li key={i} className="text-xs leading-relaxed text-foreground/90 font-medium ml-4 list-disc mb-1.5">
+            {formatBoldText(content)}
+          </li>
+        );
+      }
+      if (!trimmed) {
+        return <div key={i} className="h-2" />;
+      }
+      return (
+        <p key={i} className="text-xs leading-relaxed text-foreground/90 font-medium mb-2.5">
+          {formatBoldText(line)}
+        </p>
+      );
+    });
+  };
+
   // Carregar dados e analisar conversa
   useEffect(() => {
     const analyzeSession = async () => {
@@ -112,12 +189,15 @@ export default function ResultScreen() {
           throw new Error("Falha ao analisar a conversa.");
         }
 
-        const data: AnalysisResult & { 
-          phase_unlocked?: boolean;
-          track_completed?: boolean;
-          new_track_name?: string;
-          old_track_name?: string;
-        } = await response.json();
+        const data: any = await response.json();
+        
+        if (data.isShortSession) {
+          setIsShortSession(true);
+          setShortSessionMessage(data.message);
+          setLoading(false);
+          return;
+        }
+
         setResult(data);
         if (data.phase_unlocked) {
           setPhaseUnlocked(true);
@@ -157,9 +237,38 @@ export default function ResultScreen() {
     );
   }
 
+  if (isShortSession) {
+    return (
+      <div className="flex-grow w-full max-w-md mx-auto flex flex-col items-center justify-center px-4 py-12 text-center bg-background min-h-screen">
+        <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6">
+          <SparklesIcon size={24} className="animate-pulse" />
+        </div>
+        <h2 className="text-base font-black uppercase tracking-wider text-white mb-3">Sessão muito curta</h2>
+        <p className="text-xs text-muted-text leading-relaxed max-w-xs mb-8">
+          {shortSessionMessage}
+        </p>
+        
+        <div className="w-full flex flex-col gap-3 max-w-[280px]">
+          <button
+            onClick={handleRestartCall}
+            className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-background font-bold uppercase tracking-widest text-[10px] transition duration-300 shadow-[0_0_15px_rgba(204,255,0,0.2)] cursor-pointer"
+          >
+            Tentar Novamente
+          </button>
+          <Link
+            href="/"
+            className="w-full py-3.5 rounded-xl border border-muted-slate/30 hover:bg-muted-slate/15 text-white font-bold uppercase tracking-widest text-[10px] transition duration-300 flex items-center justify-center cursor-pointer"
+          >
+            Voltar ao Menu
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   if (error || !result) {
     return (
-      <div className="flex-1 w-full max-w-md mx-auto flex flex-col items-center justify-center px-4 py-12 text-center">
+      <div className="flex-grow w-full max-w-md mx-auto flex flex-col items-center justify-center px-4 py-12 text-center bg-background min-h-screen">
         <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 flex items-center justify-center mb-4">
           <XIcon size={24} />
         </div>
@@ -264,12 +373,12 @@ export default function ResultScreen() {
           <div className="flex items-center gap-2 mb-2">
             <ZapIcon size={14} className="text-primary" />
             <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
-              Destaque da Sessão
+              Destaques e Insights
             </span>
           </div>
-          <p className="text-xs leading-relaxed text-foreground/90 font-medium">
-            {result.highlights}
-          </p>
+          <div className="w-full flex flex-col">
+            {renderHighlights(result.highlights)}
+          </div>
         </section>
 
         {/* Tabs and Review Lists */}
@@ -364,14 +473,30 @@ export default function ResultScreen() {
           </div>
         </section>
 
-        {/* Action Button: Share */}
-        <section className="w-full mt-4">
+        {/* Action Buttons: Next Phase / Share / Dashboard */}
+        <section className="w-full mt-4 flex flex-col gap-3">
           <button
             onClick={() => setShowShareModal(true)}
-            className="w-full py-4 rounded-xl bg-primary hover:bg-primary-hover text-background font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(204,255,0,0.25)] transition duration-300 active:scale-95"
+            className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-background font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(204,255,0,0.15)] transition duration-300 active:scale-95 cursor-pointer"
           >
-            <ShareIcon size={16} /> Compartilhar Conquista
+            <ShareIcon size={14} /> Compartilhar Conquista
           </button>
+
+          <div className="flex gap-3 w-full">
+            <Link
+              href="/"
+              className="flex-1 py-3.5 rounded-xl border border-muted-slate/30 hover:bg-muted-slate/15 text-white font-bold uppercase tracking-widest text-[10px] flex items-center justify-center transition duration-300 cursor-pointer"
+            >
+              Voltar ao Menu
+            </Link>
+            
+            <button
+              onClick={handleGoToNextPhase}
+              className="flex-1 py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-background font-bold uppercase tracking-widest text-[10px] flex items-center justify-center transition duration-300 shadow-[0_0_15px_rgba(204,255,0,0.1)] cursor-pointer"
+            >
+              Próxima Fase
+            </button>
+          </div>
         </section>
 
       </main>
