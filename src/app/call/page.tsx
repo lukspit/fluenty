@@ -47,7 +47,7 @@ function CallContent() {
   const [showSos, setShowSos] = useState(false);
   const [statusText, setStatusText] = useState("Conectando ao tutor de voz...");
   const [duration, setDuration] = useState(0);
-  const [activeScenario, setActiveScenario] = useState<string>(scenario);
+  const [activeScenario, setActiveScenario] = useState<string>(pathId ? "" : scenario);
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<Message[]>([]);
 
@@ -783,13 +783,19 @@ function CallContent() {
               ? "border-primary/40 scale-100 opacity-80" 
               : "border-muted-slate/40 scale-100"
           }`}>
-            <Image 
-              src={tutorAvatars[activeScenario] || "/assets/tutor_alex.png"} 
-              alt={tutorNames[activeScenario] || "Tutor"} 
-              fill
-              className="object-cover"
-              priority
-            />
+            {activeScenario ? (
+              <Image 
+                src={tutorAvatars[activeScenario] || "/assets/tutor_alex_v3.png"} 
+                alt={tutorNames[activeScenario] || "Tutor"} 
+                fill
+                className="object-cover animate-fade-in"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full bg-muted-slate/15 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+              </div>
+            )}
           </div>
         </div>
 

@@ -221,18 +221,70 @@ export default function ResultScreen() {
 
   if (loading) {
     return (
-      <div className="flex-1 w-full max-w-md mx-auto flex flex-col items-center justify-center px-4 py-12">
-        {/* Spinner animado em CSS puro */}
-        <div className="relative w-16 h-16 mb-6">
-          <div className="absolute inset-0 rounded-full border-4 border-muted-slate/20"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
-        </div>
-        <p className="text-sm font-bold uppercase tracking-widest text-primary animate-pulse">
-          Analisando sua fluência...
-        </p>
-        <p className="text-[11px] text-muted-text mt-2 text-center font-medium">
-          Nossa IA está revisando sua pronúncia, gramática e vocabulário.
-        </p>
+      <div className="flex-grow w-full max-w-md mx-auto flex flex-col justify-between px-4 py-6 md:max-w-2xl lg:max-w-4xl relative overflow-hidden bg-background min-h-screen animate-pulse">
+        {/* Header Skeleton */}
+        <header className="flex items-center justify-between w-full mb-6">
+          <div className="w-16 h-4 bg-muted-slate/20 rounded-md" />
+          <div className="w-28 h-5 bg-muted-slate/20 rounded-md" />
+          <div className="w-10 h-10 bg-card-bg border border-muted-slate/20 rounded-xl" />
+        </header>
+
+        {/* Main Content Skeleton */}
+        <main className="flex-1 flex flex-col gap-6 w-full">
+          {/* Score Circle Skeleton */}
+          <section className="flex flex-col items-center justify-center bg-card-bg/40 border border-muted-slate/20 rounded-xl p-6">
+            <div className="relative w-36 h-36 rounded-full border-4 border-muted-slate/15 bg-background/20 flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center">
+                <div className="w-14 h-8 bg-muted-slate/20 rounded-md" />
+                <div className="w-10 h-2.5 bg-primary/10 rounded-md mt-1.5" />
+              </div>
+            </div>
+            <div className="w-full grid grid-cols-3 gap-2 border-t border-muted-slate/20 pt-4 mt-2">
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-10 h-3 bg-muted-slate/20 rounded-md" />
+                <div className="w-14 h-2 bg-muted-slate/10 rounded-md" />
+              </div>
+              <div className="flex flex-col items-center gap-1.5 border-x border-muted-slate/20">
+                <div className="w-10 h-3 bg-muted-slate/20 rounded-md" />
+                <div className="w-14 h-2 bg-muted-slate/10 rounded-md" />
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-10 h-3 bg-muted-slate/20 rounded-md" />
+                <div className="w-14 h-2 bg-muted-slate/10 rounded-md" />
+              </div>
+            </div>
+          </section>
+
+          {/* Highlights Banner Skeleton */}
+          <section className="bg-primary/5 border border-primary/10 rounded-xl p-4.5 flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-primary/10 rounded-md" />
+              <div className="w-32 h-3 bg-primary/20 rounded-md" />
+            </div>
+            <div className="w-full h-3 bg-muted-slate/20 rounded-md" />
+            <div className="w-5/6 h-3 bg-muted-slate/10 rounded-md" />
+          </section>
+
+          {/* Tabs Skeleton */}
+          <section className="w-full flex-1 flex flex-col">
+            <div className="flex border-b border-muted-slate/20 mb-4 gap-2">
+              <div className="flex-1 h-8 bg-muted-slate/15 rounded-md" />
+              <div className="flex-1 h-8 bg-transparent rounded-lg" />
+            </div>
+            <div className="flex flex-col gap-3">
+              {[1, 2].map((i) => (
+                <div key={i} className="bg-card-bg/40 border border-muted-slate/20 rounded-xl p-4 flex flex-col gap-2">
+                  <div className="w-3/4 h-3 bg-muted-slate/20 rounded-md" />
+                  <div className="w-1/2 h-3 bg-muted-slate/10 rounded-md" />
+                  <div className="w-full h-2 bg-muted-slate/10 rounded-md mt-2 pt-2 border-t border-muted-slate/10" />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Button Skeletons */}
+          <div className="w-full h-11 bg-primary/15 rounded-xl mt-4" />
+        </main>
       </div>
     );
   }

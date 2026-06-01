@@ -375,14 +375,85 @@ export default function Dashboard() {
 
   if (authChecking) {
     return (
-      <div className="flex-1 w-full max-w-md mx-auto flex flex-col items-center justify-center min-h-screen px-4">
-        <div className="relative w-12 h-12 mb-4">
-          <div className="absolute inset-0 rounded-full border-4 border-muted-slate/20"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
+      <div className="flex-1 w-full max-w-md mx-auto flex flex-col justify-between px-4 py-6 md:max-w-2xl lg:max-w-4xl lg:py-10 text-foreground bg-background min-h-screen animate-pulse">
+        {/* Header Skeleton */}
+        <header className="flex items-center justify-between w-full mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-card-bg border border-muted-slate/20" />
+            <div className="flex flex-col gap-1.5">
+              <div className="w-20 h-4 bg-muted-slate/20 rounded-md" />
+              <div className="w-16 h-3 bg-muted-slate/10 rounded-md" />
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-24 h-8 bg-card-bg border border-muted-slate/20 rounded-full" />
+            <div className="w-9 h-9 bg-card-bg border border-muted-slate/20 rounded-xl" />
+          </div>
+        </header>
+
+        {/* Tabs Selector Skeleton */}
+        <div className="flex w-full bg-card-bg border border-muted-slate/30 rounded-xl p-1 mb-6 gap-0.5">
+          <div className="flex-1 h-9 bg-muted-slate/10 rounded-lg" />
+          <div className="flex-1 h-9 bg-transparent rounded-lg" />
+          <div className="flex-1 h-9 bg-transparent rounded-lg" />
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-primary animate-pulse">
-          Conectando...
-        </p>
+
+        {/* Main Content Skeleton */}
+        <main className="flex-1 flex flex-col gap-6 w-full">
+          {/* Daily Challenge Widget Skeleton */}
+          <div className="w-full bg-card-bg/40 border border-muted-slate/20 rounded-xl p-4 flex items-center justify-between relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-primary/20" />
+            <div className="flex items-center gap-3.5 pl-2">
+              <div className="w-9 h-9 rounded-xl bg-muted-slate/20 border border-muted-slate/30" />
+              <div className="flex flex-col gap-1.5">
+                <div className="w-24 h-2.5 bg-primary/10 rounded-md" />
+                <div className="w-32 h-3.5 bg-muted-slate/20 rounded-md" />
+              </div>
+            </div>
+            <div className="w-16 h-7 bg-primary/15 rounded-lg" />
+          </div>
+
+          {/* Audio Station Widget Skeleton */}
+          <div className="w-full bg-card-bg/40 border border-muted-slate/20 rounded-xl p-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-lg bg-muted-slate/20 border border-muted-slate/30" />
+              <div className="flex flex-col gap-1.5">
+                <div className="w-24 h-2.5 bg-primary/10 rounded-md" />
+                <div className="w-28 h-3.5 bg-muted-slate/20 rounded-md" />
+                <div className="w-24 h-2.5 bg-muted-slate/10 rounded-md mt-1" />
+              </div>
+            </div>
+            <div className="w-20 h-9 bg-primary/15 rounded-lg" />
+          </div>
+
+          {/* Timeline Phases Skeleton */}
+          <section className="w-full">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-4 h-4 bg-muted-slate/20 rounded-md" />
+              <div className="w-44 h-3 bg-muted-slate/20 rounded-md" />
+            </div>
+
+            <div className="relative border-l border-dashed border-muted-slate/20 pl-6 ml-3.5 flex flex-col gap-5 my-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="relative w-full">
+                  {/* Timeline Indicator */}
+                  <div className="absolute -left-[32.5px] top-4.5 w-4 h-4 rounded-full border border-muted-slate/30 bg-background flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted-slate/20" />
+                  </div>
+                  {/* Card Skeleton */}
+                  <div className="w-full flex items-center gap-4 p-4 rounded-xl border border-muted-slate/15 bg-card-bg/25">
+                    <div className="w-12 h-12 rounded-lg bg-muted-slate/10 border border-muted-slate/20 shrink-0" />
+                    <div className="flex-1 flex flex-col gap-2">
+                      <div className="w-12 h-2 bg-muted-slate/10 rounded-md" />
+                      <div className="w-32 h-3.5 bg-muted-slate/20 rounded-md" />
+                      <div className="w-full h-2.5 bg-muted-slate/10 rounded-md mt-1" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
       </div>
     );
   }

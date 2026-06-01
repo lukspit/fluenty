@@ -245,14 +245,44 @@ export default function DailyChallengeScreen() {
 
   if (loading) {
     return (
-      <div className="flex-grow w-full max-w-md mx-auto flex flex-col items-center justify-center min-h-screen px-4 text-foreground bg-background">
-        <div className="relative w-12 h-12 mb-4">
-          <div className="absolute inset-0 rounded-full border-4 border-muted-slate/20"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
+      <div className="flex-grow w-full max-w-md mx-auto flex flex-col px-4 py-6 md:max-w-2xl lg:py-10 text-foreground bg-background min-h-screen animate-pulse">
+        {/* Header Skeleton */}
+        <header className="flex items-center justify-between w-full mb-8">
+          <div className="w-16 h-4 bg-muted-slate/20 rounded-md" />
+          <div className="w-28 h-5 bg-muted-slate/20 rounded-md" />
+          <div className="w-10" />
+        </header>
+
+        {/* Challenge Panel Skeleton */}
+        <div className="w-full bg-card-bg/40 border border-muted-slate/20 rounded-3xl p-6 flex flex-col gap-6 items-center">
+          {/* Challenge Type Badge Skeleton */}
+          <div className="w-28 h-6 bg-primary/10 border border-primary/20 rounded-full" />
+
+          {/* Title & Instructions Skeletons */}
+          <div className="flex flex-col items-center gap-2.5 w-full">
+            <div className="w-3/4 h-5 bg-white/20 rounded-md" />
+            <div className="w-5/6 h-3 bg-muted-slate/20 rounded-md" />
+          </div>
+
+          {/* Target Text Box Skeleton */}
+          <div className="w-full h-24 bg-background/40 border border-muted-slate/15 rounded-2xl p-5 flex items-center justify-center" />
+
+          {/* Pedagogy Context Card Skeleton */}
+          <div className="w-full h-14 bg-card-bg/25 border border-muted-slate/15 rounded-2xl" />
+
+          {/* Recorder Controls Skeleton */}
+          <div className="flex flex-col items-center gap-4 w-full mt-4">
+            {/* Audio Wave Sim */}
+            <div className="flex items-center justify-center gap-1.5 h-10 w-1/2">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="w-[3px] h-3 bg-muted-slate/20 rounded-full" />
+              ))}
+            </div>
+            {/* Mic Circle */}
+            <div className="w-16 h-16 rounded-full bg-primary/15" />
+            <div className="w-32 h-2.5 bg-muted-slate/10 rounded-md mt-1" />
+          </div>
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-primary animate-pulse">
-          Carregando desafio diário...
-        </p>
       </div>
     );
   }

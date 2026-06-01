@@ -233,14 +233,80 @@ export default function ProfileScreen() {
 
   if (loading) {
     return (
-      <div className="flex-grow w-full max-w-md mx-auto flex flex-col items-center justify-center min-h-screen px-4 text-foreground bg-background">
-        <div className="relative w-12 h-12 mb-4">
-          <div className="absolute inset-0 rounded-full border-4 border-muted-slate/20"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
+      <div className="flex-grow w-full max-w-md mx-auto flex flex-col px-4 py-6 md:max-w-2xl lg:py-10 text-foreground bg-background min-h-screen animate-pulse">
+        {/* Header Skeleton */}
+        <header className="flex items-center justify-between w-full mb-8">
+          <div className="w-16 h-4 bg-muted-slate/20 rounded-md" />
+          <div className="w-28 h-5 bg-muted-slate/20 rounded-md" />
+          <div className="w-10" />
+        </header>
+
+        {/* Main Panel Skeleton */}
+        <div className="w-full bg-card-bg/40 border border-muted-slate/20 rounded-3xl p-6 flex flex-col gap-8 mb-6">
+          {/* Section 1: Personal Info */}
+          <div className="flex flex-col gap-4 border-b border-muted-slate/25 pb-6">
+            <div className="w-28 h-3.5 bg-primary/10 rounded-md" />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-muted-slate/20 border border-muted-slate/30 shrink-0" />
+              <div className="flex-1 flex flex-col gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <div className="w-20 h-2.5 bg-muted-slate/10 rounded-md" />
+                  <div className="w-full h-8 bg-background/50 border border-muted-slate/20 rounded-xl" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="w-10 h-2.5 bg-muted-slate/10 rounded-md" />
+                  <div className="w-32 h-4 bg-transparent rounded-md mt-0.5" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3 mt-2">
+              <div className="h-14 bg-background/30 border border-muted-slate/20 rounded-2xl" />
+              <div className="h-14 bg-background/30 border border-muted-slate/20 rounded-2xl" />
+            </div>
+          </div>
+
+          {/* Section 2: Preferences */}
+          <div className="flex flex-col gap-6">
+            <div className="w-36 h-3.5 bg-primary/10 rounded-md" />
+            
+            {/* Level Selector */}
+            <div className="flex flex-col gap-2">
+              <div className="w-16 h-2.5 bg-muted-slate/10 rounded-md" />
+              <div className="grid grid-cols-3 gap-2">
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+              </div>
+            </div>
+
+            {/* Objective Selector */}
+            <div className="flex flex-col gap-2">
+              <div className="w-20 h-2.5 bg-muted-slate/10 rounded-md" />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-9 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-9 bg-background/40 border border-muted-slate/25 rounded-xl" />
+              </div>
+            </div>
+
+            {/* Interests Selector */}
+            <div className="flex flex-col gap-2">
+              <div className="w-24 h-2.5 bg-muted-slate/10 rounded-md" />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+                <div className="h-8 bg-background/40 border border-muted-slate/25 rounded-xl" />
+              </div>
+            </div>
+          </div>
+
+          {/* Save Button Skeleton */}
+          <div className="w-full h-11 bg-primary/15 rounded-xl" />
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-primary animate-pulse">
-          Carregando perfil...
-        </p>
+
+        {/* Logout Button Skeleton */}
+        <div className="w-full h-11 bg-card-bg/10 border border-muted-slate/20 rounded-xl" />
       </div>
     );
   }
