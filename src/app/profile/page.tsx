@@ -115,40 +115,8 @@ export default function ProfileScreen() {
     }
   };
 
-  const handleSubscribe = async () => {
-    setSubscribing(true);
-    setErrorMsg(null);
-
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/login");
-        return;
-      }
-
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${session.access_token}`
-        }
-      });
-
-      if (!res.ok) {
-        throw new Error("Falha ao iniciar checkout no Stripe.");
-      }
-
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error("URL de checkout inválida.");
-      }
-    } catch (err: any) {
-      console.error("Erro ao redirecionar para assinatura:", err);
-      setErrorMsg(err.message || "Não foi possível conectar com o Stripe no momento.");
-      setSubscribing(false);
-    }
+  const handleSubscribe = () => {
+    router.push("/subscribe");
   };
 
   const handleSave = async () => {
@@ -489,11 +457,10 @@ export default function ProfileScreen() {
           {!isPremium && (
             <button
               onClick={handleSubscribe}
-              disabled={subscribing}
-              className="w-full mt-1.5 py-3.5 bg-primary text-background font-black uppercase tracking-widest text-[10px] rounded-xl shadow-[0_0_15px_rgba(204,255,0,0.15)] hover:bg-primary-hover transition duration-300 flex items-center justify-center gap-2 border border-primary/25 disabled:opacity-40"
+              className="w-full mt-1.5 py-3.5 bg-primary text-background font-black uppercase tracking-widest text-[10px] rounded-xl shadow-[0_0_15px_rgba(204,255,0,0.15)] hover:bg-primary-hover transition duration-300 flex items-center justify-center gap-2 border border-primary/25"
             >
               <SparklesIcon size={12} className="text-background animate-pulse" />
-              <span>{subscribing ? "Conectando ao Stripe..." : "Assinar Fluenty Pro (R$ 29,90/mês)"}</span>
+              <span>Assinar Fluenty Pro / Ver Planos</span>
             </button>
           )}
         </section>

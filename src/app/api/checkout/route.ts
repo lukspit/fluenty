@@ -23,14 +23,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Obter a moeda padrão da conta do Stripe para auto-configuração
-    let currency = "brl";
-    let amount = 2990; // R$ 29,90 padrão
-
-    // 2. Localizar ou criar o produto e preço do "Fluenty Pro" de forma automatizada
-    let priceId = process.env.STRIPE_PRICE_ID;
+    // 1. Obter o priceId do corpo da requisição ou usar o preço padrão
+    const body = await req.json().catch(() => ({}));
+    let priceId = body.priceId || process.env.STRIPE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY;
     
     if (!priceId) {
+      console.log("Stripe priceId não enviado. Gerando ou buscando plano fallback...");
       const products = await stripe.products.list({ limit: 50 });
       let product = products.data.find(p => p.name === "Fluenty Pro");
 
@@ -47,8 +45,8 @@ export async function POST(req: NextRequest) {
       if (!price) {
         price = await stripe.prices.create({
           product: product.id,
-          unit_amount: amount,
-          currency: currency,
+          unit_amount: 4990, // R$ 49,90 default
+          currency: "brl",
           recurring: {
             interval: "month",
           },
