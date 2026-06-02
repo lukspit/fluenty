@@ -141,13 +141,13 @@ export default function SubscribeScreen() {
       {/* Grade com os dois Planos */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 relative z-10 w-full max-w-3xl mx-auto">
         
-        {/* Plano 1: Fluenty Plus */}
+        {/* Plano 1: Fluenty Essential */}
         <div className="bg-card-bg/60 border border-muted-slate/20 rounded-3xl p-6 backdrop-blur-md flex flex-col justify-between hover:border-muted-slate/40 transition duration-300 relative">
           <div>
             <span className="text-[9px] font-black uppercase tracking-widest text-muted-text block mb-1">
               Para Começar
             </span>
-            <h2 className="text-base font-black text-white">Fluenty Plus</h2>
+            <h2 className="text-base font-black text-white">Fluenty Essential</h2>
             <p className="text-[10px] text-muted-text mt-1.5 leading-normal">
               Ideal para quem quer praticar conversação casual em ritmo leve sem perder o hábito.
             </p>
@@ -184,7 +184,7 @@ export default function SubscribeScreen() {
           </button>
         </div>
 
-        {/* Plano 2: Fluenty Pro */}
+        {/* Plano 2: Fluenty Unlimited */}
         <div className="bg-card-bg/85 border border-primary/35 rounded-3xl p-6 backdrop-blur-md flex flex-col justify-between hover:border-primary/50 transition duration-300 relative shadow-[0_0_30px_rgba(204,255,0,0.04)]">
           {/* Badge de Recomendado */}
           <div className="absolute -top-3 right-6 bg-primary text-background text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_12px_rgba(204,255,0,0.25)]">
@@ -196,7 +196,7 @@ export default function SubscribeScreen() {
               Conversação Infinita
             </span>
             <h2 className="text-base font-black text-white flex items-center gap-1.5">
-              Fluenty Pro <SparklesIcon size={12} className="text-primary animate-pulse" />
+              Fluenty Unlimited <SparklesIcon size={12} className="text-primary animate-pulse" />
             </h2>
             <p className="text-[10px] text-muted-text mt-1.5 leading-normal">
               Acesso total ilimitado para quem precisa destravar a fala profissional para o mercado e reuniões.
@@ -245,7 +245,7 @@ export default function SubscribeScreen() {
           >
             {loadingPriceId === (billingPeriod === "monthly" ? proMonthlyId : proAnnualId)
               ? "Redirecionando..."
-              : `Assinar Pro ${billingPeriod === "annual" ? "Anual" : "Mensal"}`}
+              : `Assinar Unlimited ${billingPeriod === "annual" ? "Anual" : "Mensal"}`}
           </button>
         </div>
 

@@ -6,48 +6,6 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { SparklesIcon, CheckIcon, ChevronRightIcon } from "@/components/Icons";
 
-const tutorAvatars: Record<string, string> = {
-  casual: "/assets/tutor_alex_v3.png",
-  interview: "/assets/tutor_sarah_v3.png",
-  coffee: "/assets/tutor_sophia_v3.png",
-  meeting: "/assets/tutor_marcus_v3.png"
-};
-
-const tutorProfiles = [
-  {
-    id: "casual",
-    name: "Alex",
-    scenario: "Casual Chat",
-    tone: "casual",
-    avatar: "/assets/tutor_alex_v3.png",
-    desc: "Descontraído e informal, ideal para praticar conversas cotidianas sobre hobbies, cultura e rotina, como se fosse um amigo de longa data."
-  },
-  {
-    id: "interview",
-    name: "Sarah",
-    scenario: "Job Interview",
-    tone: "technical",
-    avatar: "/assets/tutor_sarah_v3.png",
-    desc: "Direta e profissional, focada em guiar você por simulações de entrevistas técnicas desafiadoras, polindo suas respostas corporativas."
-  },
-  {
-    id: "coffee",
-    name: "Sophia",
-    scenario: "Coffee Shop",
-    tone: "friendly",
-    avatar: "/assets/tutor_sophia_v3.png",
-    desc: "Paciente, super amigável e enérgica, excelente para simular compras ou diálogos rápidos no dia a dia em viagens."
-  },
-  {
-    id: "meeting",
-    name: "Marcus",
-    scenario: "Daily Scrum",
-    tone: "technical",
-    avatar: "/assets/tutor_marcus_v3.png",
-    desc: "Gerente de projetos ágil, excelente para simular standups corporativos e debater entregas sob a perspectiva do seu cargo."
-  }
-];
-
 const suggestionRoles = [
   "Software Developer",
   "Product Designer",
@@ -64,13 +22,26 @@ const objectiveOptions = [
   { id: "Casual Conversation", label: "Conversar sobre Hobbies e Dia a Dia", desc: "Diálogos livres, gírias e estruturação fluida de ideias" }
 ];
 
+const difficultyOptions = [
+  { id: "Tradução Mental", label: "Traduzir mentalmente / Dar 'branco'", desc: "Tento traduzir na cabeça do português para o inglês antes de falar, travando a conversa." },
+  { id: "Medo de Julgamento", label: "Medo de julgamento ou vergonha", desc: "Insegurança em errar pronúncia ou regras gramaticais diante de outras pessoas." },
+  { id: "Falta de Vocabulário", label: "Falta de vocabulário específico", desc: "Sinto falta de jargões técnicos e termos profissionais para me expressar na minha área." },
+  { id: "Ritmo e Pronúncia", label: "Ritmo de fala e pronúncia", desc: "Dificuldade em pronunciar as palavras corretamente ou de manter um diálogo contínuo." }
+];
+
 const interestOptions = [
   { id: "Technology & AI", label: "Tecnologia & IA" },
-  { id: "Economy & Startups", label: "Economia & Negócios" },
-  { id: "Movies & Series", label: "Filmes, Séries & Pop" },
-  { id: "Health & Sports", label: "Saúde, Bem-estar & Esportes" },
-  { id: "Travel & Food", label: "Culinária & Viagens Culturais" },
-  { id: "Science & Education", label: "Ciência, Inovação & Educação" }
+  { id: "Startups & Business", label: "Startups & Negócios" },
+  { id: "Software & Coding", label: "Programação & Código" },
+  { id: "Design & UX/UI", label: "Design & UX/UI" },
+  { id: "Leadership & Careers", label: "Carreira & Liderança" },
+  { id: "Economy & Finance", label: "Economia & Finanças" },
+  { id: "Science & Space", label: "Ciência & Espaço" },
+  { id: "Sports & Fitness", label: "Esportes & Saúde" },
+  { id: "Movies & Pop Culture", label: "Filmes & Séries" },
+  { id: "Travel & Culture", label: "Viagens & Cultura" },
+  { id: "Cryptocurrencies", label: "Criptomoedas" },
+  { id: "Books & Growth", label: "Livros & Desenvolvimento" }
 ];
 
 export default function OnboardingScreen() {
@@ -82,10 +53,10 @@ export default function OnboardingScreen() {
 
   // Respostas do Quiz
   const [englishLevel, setEnglishLevel] = useState<string>("Intermediate");
+  const [difficulty, setDifficulty] = useState<string>("Tradução Mental");
   const [occupation, setOccupation] = useState<string>("");
   const [objectives, setObjectives] = useState<string[]>([]);
   const [interests, setInterests] = useState<string[]>([]);
-  const [selectedTutor, setSelectedTutor] = useState<string>("casual");
 
   useEffect(() => {
     const checkSession = async () => {
@@ -127,15 +98,15 @@ export default function OnboardingScreen() {
   };
 
   const handleNext = () => {
-    if (step === 2 && !occupation.trim()) {
-      setErrorMsg("Por favor, informe a sua profissão ou área de atuação.");
+    if (step === 3 && !occupation.trim()) {
+      setErrorMsg("Por favor, descreva um pouco da sua rotina de trabalho ou estudos.");
       return;
     }
-    if (step === 3 && objectives.length === 0) {
+    if (step === 4 && objectives.length === 0) {
       setErrorMsg("Por favor, selecione pelo menos um objetivo principal.");
       return;
     }
-    if (step === 4 && interests.length === 0) {
+    if (step === 5 && interests.length === 0) {
       setErrorMsg("Por favor, selecione pelo menos um tema de interesse.");
       return;
     }
@@ -166,12 +137,12 @@ export default function OnboardingScreen() {
         return;
       }
 
-      // 1. Mapear tutor inicial selecionado para tutor_tone correspondente
-      const tutorObj = tutorProfiles.find(t => t.id === selectedTutor);
-      const toneValue = tutorObj?.tone || "friendly";
+      // 1. Mapear tom de tutor padrão
+      const hasTechnicalObj = objectives.includes("Job Interviews") || objectives.includes("Daily Meetings");
+      const toneValue = hasTechnicalObj ? "technical" : "friendly";
 
-      // 2. Serializar o campo learning_objective no formato "Objetivos: Profissão"
-      const objectiveValue = objectives.join(", ") + ": " + occupation.trim();
+      // 2. Serializar o campo learning_objective no formato "Objetivos (Dificuldade: X): Rotina"
+      const objectiveValue = `${objectives.join(", ")} (Dificuldade: ${difficulty}): ${occupation.trim()}`;
 
       // 3. Atualizar perfil com as respostas do onboarding
       const { error: profileError } = await supabase
@@ -238,7 +209,7 @@ export default function OnboardingScreen() {
           Construindo sua jornada
         </h2>
         <p className="text-xs text-muted-text max-w-xs leading-relaxed">
-          Nossa inteligência artificial está desenhando 5 lições progressivas sob medida baseadas no seu cargo de {occupation} e objetivos de conversação.
+          Nossa inteligência artificial está desenhando 5 lições progressivas sob medida baseadas na sua rotina de trabalho e nos seus objetivos de conversação.
         </p>
       </div>
     );
@@ -322,34 +293,79 @@ export default function OnboardingScreen() {
           </div>
         )}
 
-        {/* Passo 2: Profissão/Cargo */}
+        {/* Passo 2: Dificuldade na Fala */}
         {step === 2 && (
           <div className="flex flex-col gap-5">
             <div>
               <h1 className="text-lg font-black tracking-tight text-white">
-                Qual é a sua profissão ou área?
+                Qual sua maior barreira ao falar?
               </h1>
               <p className="text-[10px] text-muted-text uppercase tracking-widest mt-1 font-bold">
-                Usado para criar cenários de roleplay sob medida para seu trabalho
+                Isso ajuda a calibrar a tolerância de erros do seu tutor
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              {difficultyOptions.map((item) => {
+                const isSelected = difficulty === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setDifficulty(item.id)}
+                    className={`flex items-start gap-3.5 p-4 rounded-2xl border text-left transition-all duration-300 ${
+                      isSelected
+                        ? "bg-primary/5 border-primary shadow-[0_0_12px_rgba(204,255,0,0.05)]"
+                        : "bg-background/40 border-muted-slate/20 hover:border-muted-slate/50"
+                    }`}
+                  >
+                    <div className={`w-4.5 h-4.5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                      isSelected ? "border-primary bg-primary text-background" : "border-muted-slate/40 bg-background/20"
+                    }`}>
+                      {isSelected && <CheckIcon size={10} />}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className={`text-xs font-black ${isSelected ? "text-primary" : "text-white"}`}>
+                        {item.label}
+                      </span>
+                      <span className="text-[10px] text-muted-text mt-1 leading-relaxed">
+                        {item.desc}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Passo 3: Rotina de Trabalho (Textarea Aberto) */}
+        {step === 3 && (
+          <div className="flex flex-col gap-5">
+            <div>
+              <h1 className="text-lg font-black tracking-tight text-white">
+                O que você faz no trabalho?
+              </h1>
+              <p className="text-[10px] text-muted-text uppercase tracking-widest mt-1 font-bold">
+                Descreva sua rotina para criarmos simulações sob medida
               </p>
             </div>
 
             <div className="flex flex-col gap-4">
-              <input
-                type="text"
+              <textarea
                 value={occupation}
                 onChange={(e) => {
                   setOccupation(e.target.value);
                   setErrorMsg(null);
                 }}
-                className="w-full bg-background/50 border border-muted-slate/30 focus:border-primary rounded-xl px-4 py-3 text-xs font-semibold text-white focus:outline-none transition-all placeholder-muted-text"
-                placeholder="Ex: Software Developer, Product Manager, Student..."
+                rows={4}
+                className="w-full bg-background/50 border border-muted-slate/30 focus:border-primary rounded-xl px-4 py-3 text-xs font-semibold text-white focus:outline-none transition-all placeholder-muted-text resize-none leading-relaxed"
+                placeholder="Ex: Sou programador frontend, participo de reuniões diárias com devs gringos e apresento componentes de UI..."
                 autoFocus
               />
 
               <div className="flex flex-col gap-2">
                 <span className="text-[9px] font-black uppercase tracking-wider text-muted-text">
-                  Sugestões rápidas:
+                  Ou selecione uma sugestão para editar:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {suggestionRoles.map((role) => (
@@ -357,14 +373,10 @@ export default function OnboardingScreen() {
                       key={role}
                       type="button"
                       onClick={() => {
-                        setOccupation(role);
+                        setOccupation(`Atuo como ${role} no cotidiano, participando de alinhamentos e respondendo demandas da área.`);
                         setErrorMsg(null);
                       }}
-                      className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition duration-300 ${
-                        occupation === role
-                          ? "bg-primary border-primary text-background"
-                          : "bg-background/30 border-muted-slate/20 text-muted-text hover:border-muted-slate/40 hover:text-white"
-                      }`}
+                      className="px-3 py-1.5 rounded-lg border text-[10px] font-bold transition duration-300 bg-background/30 border-muted-slate/20 text-muted-text hover:border-muted-slate/40 hover:text-white"
                     >
                       {role}
                     </button>
@@ -375,8 +387,8 @@ export default function OnboardingScreen() {
           </div>
         )}
 
-        {/* Passo 3: Objetivos / Dores */}
-        {step === 3 && (
+        {/* Passo 4: Objetivos / Dores */}
+        {step === 4 && (
           <div className="flex flex-col gap-5">
             <div>
               <h1 className="text-lg font-black tracking-tight text-white">
@@ -420,87 +432,32 @@ export default function OnboardingScreen() {
           </div>
         )}
 
-        {/* Passo 4: Interesses */}
-        {step === 4 && (
+        {/* Passo 5: Interesses (Expandido - 12 Opções) */}
+        {step === 5 && (
           <div className="flex flex-col gap-5">
             <div>
               <h1 className="text-lg font-black tracking-tight text-white">
                 Quais temas te interessam?
               </h1>
               <p className="text-[10px] text-muted-text uppercase tracking-widest mt-1 font-bold">
-                O tutor utilizará esses temas nas conversas casuais e exemplos
+                O tutor utilizará esses temas nas conversas e exemplos
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-2 max-h-[250px] overflow-y-auto pr-1">
               {interestOptions.map((topic) => {
                 const isSelected = interests.includes(topic.id);
                 return (
                   <button
                     key={topic.id}
                     onClick={() => handleInterestToggle(topic.id)}
-                    className={`p-3.5 rounded-xl border text-center font-black text-[11px] transition-all duration-300 uppercase tracking-wider ${
+                    className={`p-3 rounded-xl border text-center font-black text-[9px] transition-all duration-300 uppercase tracking-wider ${
                       isSelected
                         ? "bg-primary border-primary text-background shadow-[0_0_12px_rgba(204,255,0,0.15)]"
                         : "bg-background/40 border-muted-slate/20 text-muted-text hover:border-muted-slate/50 hover:text-white"
                     }`}
                   >
                     {topic.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Passo 5: Tutor Inicial */}
-        {step === 5 && (
-          <div className="flex flex-col gap-5">
-            <div>
-              <h1 className="text-lg font-black tracking-tight text-white">
-                Quem será seu tutor inicial?
-              </h1>
-              <p className="text-[10px] text-muted-text uppercase tracking-widest mt-1 font-bold">
-                Escolha com quem você fará sua primeira conexão de áudio
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-2.5 max-h-[300px] overflow-y-auto pr-1">
-              {tutorProfiles.map((tutor) => {
-                const isSelected = selectedTutor === tutor.id;
-                return (
-                  <button
-                    key={tutor.id}
-                    onClick={() => setSelectedTutor(tutor.id)}
-                    className={`flex items-start gap-3.5 p-3 rounded-2xl border text-left transition-all duration-300 ${
-                      isSelected
-                        ? "bg-primary/5 border-primary shadow-[0_0_12px_rgba(204,255,0,0.05)]"
-                        : "bg-background/40 border-muted-slate/20 hover:border-muted-slate/50"
-                    }`}
-                  >
-                    {/* Imagem do Tutor */}
-                    <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-muted-slate/30 shrink-0 bg-background/50">
-                      <Image
-                        src={tutor.avatar}
-                        alt={tutor.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    {/* Detalhes */}
-                    <div className="flex-1 flex flex-col justify-center">
-                      <div className="flex items-center justify-between">
-                        <span className={`text-xs font-black ${isSelected ? "text-primary" : "text-white"}`}>
-                          {tutor.name}
-                        </span>
-                        <span className="text-[8px] font-black uppercase text-primary bg-primary/10 border border-primary/25 px-1.5 py-0.5 rounded-md leading-none">
-                          {tutor.scenario}
-                        </span>
-                      </div>
-                      <p className="text-[9px] text-muted-text mt-1 leading-normal">
-                        {tutor.desc}
-                      </p>
-                    </div>
                   </button>
                 );
               })}
