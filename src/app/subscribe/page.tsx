@@ -65,30 +65,34 @@ export default function SubscribeScreen() {
   const proAnnualId = process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_ANNUAL || "price_1TdLU3Jm8EKlUsxiVdM1tgJm";
 
   return (
-    <div className="flex-1 w-full max-w-md mx-auto flex flex-col justify-center px-4 py-8 bg-background text-foreground min-h-screen relative overflow-hidden md:max-w-2xl lg:max-w-4xl">
-      {/* Elementos decorativos com blur */}
-      <div className="absolute w-72 h-72 bg-primary/5 rounded-full blur-3xl -top-10 -left-10 pointer-events-none animate-pulse" />
-      <div className="absolute w-96 h-96 bg-primary/2 rounded-full blur-3xl -bottom-20 -right-20 pointer-events-none" />
+    <div className="flex-1 w-full min-h-screen relative overflow-hidden bg-background text-foreground flex flex-col py-8">
+      {/* Elementos decorativos com blur no viewport inteiro */}
+      <div className="absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -top-40 -left-40 pointer-events-none animate-pulse" />
+      <div className="absolute w-[600px] h-[600px] bg-primary/2 rounded-full blur-[120px] -bottom-40 -right-20 pointer-events-none" />
 
-      {/* Header */}
-      <header className="flex items-center justify-between w-full mb-8 relative z-10">
-        <button
-          onClick={() => router.push("/profile")}
-          className="flex items-center gap-1.5 text-xs text-muted-text font-bold uppercase tracking-widest hover:text-white transition"
-        >
-          <ChevronLeftIcon size={12} />
-          Voltar
-        </button>
-        <div className="relative w-8 h-8 flex-shrink-0">
-          <Image
-            src="/logo-v3.png"
-            alt="Fluenty Logo"
-            fill
-            className="object-contain animate-pulse"
-          />
-        </div>
-        <div className="w-10"></div>
-      </header>
+      {/* Container de conteúdo */}
+      <div className="w-full max-w-5xl mx-auto px-6 relative z-10 flex flex-col justify-center flex-1">
+        
+        {/* Header */}
+        <header className="flex items-center w-full mb-10 relative z-10 h-10">
+          <button
+            onClick={() => router.push("/profile")}
+            className="flex items-center gap-1.5 text-xs text-muted-text font-bold uppercase tracking-widest hover:text-white transition relative z-20"
+          >
+            <ChevronLeftIcon size={12} />
+            Voltar
+          </button>
+          
+          {/* Logo perfeitamente centralizada */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex-shrink-0">
+            <Image
+              src="/logo-v3.png"
+              alt="Fluenty Logo"
+              fill
+              className="object-contain animate-pulse"
+            />
+          </div>
+        </header>
 
       {/* Título Principal */}
       <div className="text-center flex flex-col items-center gap-2 mb-8 relative z-10">
@@ -254,6 +258,7 @@ export default function SubscribeScreen() {
       <footer className="w-full text-center text-[10px] text-muted-text uppercase tracking-widest mt-12 font-bold relative z-10">
         Fluenty © 2026 • Ambiente de Pagamento Seguro
       </footer>
+      </div>
     </div>
   );
 }
