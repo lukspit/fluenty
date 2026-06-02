@@ -23,7 +23,7 @@ export default function SubscribeScreen() {
 
   const handleSubscribe = async (priceId: string) => {
     if (!userSession) {
-      router.push("/login");
+      router.push(`/login?mode=signup&priceId=${priceId}`);
       return;
     }
 

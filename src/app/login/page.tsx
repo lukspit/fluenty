@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
@@ -15,6 +15,18 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [priceIdToRedirect, setPriceIdToRedirect] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("mode") === "signup") {
+      setIsSignUp(true);
+    }
+    const priceId = params.get("priceId");
+    if (priceId) {
+      setPriceIdToRedirect(priceId);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,11 +55,14 @@ export default function LoginScreen() {
 
         if (error) throw error;
         
-        setSuccessMsg("Cadastro concluído! Agora você pode fazer o login.");
-        setIsSignUp(false);
-        setEmail("");
-        setPassword("");
-        setName("");
+        // Faz login automático após o cadastro
+        const { error: loginError } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        
+        if (loginError) throw loginError;
+        
       } else {
         // Fluxo de Login
         const { error } = await supabase.auth.signInWithPassword({
@@ -56,10 +71,30 @@ export default function LoginScreen() {
         });
 
         if (error) throw error;
-
-        // Redireciona para a dashboard
-        router.push("/");
       }
+
+      // Redirecionamento para o checkout, se necessário
+      if (priceIdToRedirect) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          const res = await fetch("/api/checkout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({ priceId: priceIdToRedirect })
+          });
+          const data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+            return;
+          }
+        }
+      }
+
+      // Redireciona para a dashboard se não houver checkout pendente
+      router.push("/");
     } catch (err: any) {
       console.error("Erro na autenticação:", err);
       setErrorMsg(err.message || "Erro de conexão. Tente novamente.");
