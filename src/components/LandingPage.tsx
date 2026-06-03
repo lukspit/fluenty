@@ -14,23 +14,31 @@ declare global {
 const PRODUCT_PRICE = "27,00";
 const CHECKOUT_URL = "https://pay.kiwify.com.br/lvlsx68";
 const YOUTUBE_VIDEO_ID = "FqkMu2dD5kE";
+const REVEAL_TIME = 255; // 4 minutos e 15 segundos (coincide com o pitch de vendas da VSL)
 
 export default function LandingPage() {
   const [showOffer, setShowOffer] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [vslProgress, setVslProgress] = useState(0);
   const playerRef = useRef<any>(null);
   const intervalRef = useRef<any>(null);
 
-  // Inicia a verificação de tempo do vídeo
+  // Inicia a verificação de tempo do vídeo e atualiza o progresso não-linear (Goal Gradient)
   const startTracking = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       if (playerRef.current && typeof playerRef.current.getCurrentTime === "function") {
         const currentTime = playerRef.current.getCurrentTime();
-        // Revela a oferta quando o vídeo passa de 4m30s (270 segundos)
-        if (currentTime >= 270) {
+        
+        if (currentTime >= REVEAL_TIME) {
           triggerReveal();
           stopTracking();
+        } else {
+          // Fórmula Goal Gradient (desaceleração): começa rápido e vai suavizando
+          const ratio = currentTime / REVEAL_TIME;
+          const curve = 1 - Math.pow(1 - ratio, 2.5);
+          const calculated = Math.min(99, Math.round(curve * 100));
+          setVslProgress(calculated);
         }
       }
     }, 1000);
@@ -45,12 +53,14 @@ export default function LandingPage() {
 
   const triggerReveal = () => {
     setShowOffer(true);
+    setVslProgress(100);
     localStorage.setItem("vsl_revealed", "true");
   };
 
   const resetReveal = () => {
     localStorage.removeItem("vsl_revealed");
     setShowOffer(false);
+    setVslProgress(0);
     if (playerRef.current && typeof playerRef.current.seekTo === "function") {
       playerRef.current.seekTo(0);
       playerRef.current.playVideo();
@@ -116,6 +126,7 @@ export default function LandingPage() {
     const params = new URLSearchParams(window.location.search);
     if (params.get("reveal") === "true" || localStorage.getItem("vsl_revealed") === "true") {
       setShowOffer(true);
+      setVslProgress(100);
     }
   }, []);
 
@@ -176,15 +187,15 @@ export default function LandingPage() {
         
         {/* Headline Section */}
         <div className="text-center space-y-5 max-w-3xl mb-6">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-neon bg-brand-neon/10 border border-brand-neon/15 px-4 py-1.5 rounded-full">
-            <SparklesIcon size={10} className="animate-pulse text-brand-neon" /> PARA QUEM JÁ ENTENDE INGLÊS, MAS TRAVA NA HORA DE FALAR
+          <span className="inline-flex items-center gap-1.5 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-brand-neon bg-brand-neon/10 border border-brand-neon/15 px-4 py-1.5 rounded-full">
+            <SparklesIcon size={10} className="animate-pulse text-brand-neon" /> JÁ ENTENDE INGLÊS, MAS TRAVA AO FALAR?
           </span>
           
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl mx-auto">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl mx-auto">
             Fale inglês com a mesma <span className="text-brand-neon">confiança e autoridade</span> que você tem em português
           </h1>
           
-          <h2 className="text-base sm:text-lg md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto">
+          <h2 className="text-sm sm:text-base md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto">
             — em menos de 30 dias, praticando sozinho, sem decorar gramática ou gastar com intercâmbio caro.
           </h2>
           
@@ -201,9 +212,22 @@ export default function LandingPage() {
           <div id="vsl-youtube-player" className="w-full h-full rounded-2xl" />
         </div>
 
-        <p className="text-[10px] text-brand-textMuted uppercase tracking-widest font-bold mb-12 flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span> Assista ao vídeo de 5 minutos acima para liberar seu acesso
-        </p>
+        {/* Barra de Progresso Não-Linear da VSL (Goal Gradient) */}
+        <div className="w-full max-w-sm mt-2 mb-12 space-y-2.5">
+          <div className="flex justify-between items-center text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-brand-textMuted">
+            <span className="flex items-center gap-1.5">
+              <span className={`w-1.5 h-1.5 rounded-full ${showOffer ? "bg-brand-neon" : "bg-red-500 animate-ping"}`} />
+              {showOffer ? "Material de Oferta Liberado" : "Liberando Conteúdo Exclusivo"}
+            </span>
+            <span className="text-brand-neon font-black">{vslProgress}%</span>
+          </div>
+          <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden border border-white/[0.02] relative">
+            <div 
+              className="h-full bg-gradient-to-r from-brand-neon/80 to-brand-neon transition-all duration-300 ease-out shadow-[0_0_10px_rgba(204,255,0,0.5)] rounded-full" 
+              style={{ width: `${vslProgress}%` }}
+            />
+          </div>
+        </div>
 
         {/* Developer Bypass (Só para testes locais) */}
         <div className="text-center mb-10">
