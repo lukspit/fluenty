@@ -19,6 +19,14 @@
   --color-muted-text: var(--muted-text);
   --color-card-bg: var(--card-bg);
   --font-sans: var(--font-plus-jakarta-sans), var(--font-geist-sans), sans-serif;
+  
+  /* Cores de Marca (Brand) para a Landing Page */
+  --color-brand-dark: #080B10;
+  --color-brand-neon: #CCFF00;
+  --color-brand-neonHover: #B2DF00;
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+  --color-brand-card: rgba(22, 23, 26, 0.65);
+  --color-brand-textMuted: #8E8F94;
 }
 
 body {
