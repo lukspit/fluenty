@@ -13,7 +13,7 @@ declare global {
 
 const PRODUCT_PRICE = "27,00";
 const CHECKOUT_URL = "https://pay.kiwify.com.br/lvlsx68";
-const YOUTUBE_VIDEO_ID = "FqkMu2dD5kE";
+const YOUTUBE_VIDEO_ID = "IChj3FTUaoU";
 const REVEAL_TIME = 255; // 4 minutos e 15 segundos (coincide com o pitch de vendas da VSL)
 
 export default function LandingPage() {
@@ -191,12 +191,12 @@ export default function LandingPage() {
             <SparklesIcon size={10} className="animate-pulse text-brand-neon" /> JÁ ENTENDE INGLÊS, MAS TRAVA AO FALAR?
           </span>
           
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl mx-auto">
+          <h1 className="text-[27px] sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl mx-auto">
             Fale inglês com a mesma <span className="text-brand-neon">confiança e autoridade</span> que você tem em português
           </h1>
           
-          <h2 className="text-sm sm:text-base md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto">
-            — em menos de 30 dias, praticando sozinho, sem decorar gramática ou gastar com intercâmbio caro.
+          <h2 className="text-sm sm:text-base md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto mt-4">
+            — em menos de 30 dias, praticando sozinho, sem decorar gramática ou gastar com intercâmbio.
           </h2>
           
           {/* Indicador de Seta apontando para a VSL */}
