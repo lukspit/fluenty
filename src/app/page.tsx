@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { Heatmap } from "@/components/Heatmap";
+import LandingPage from "@/components/LandingPage";
 import { 
   FlameIcon, 
   SparklesIcon, 
@@ -53,6 +54,7 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<"practice" | "dictionary" | "progress">("practice");
   const [userName, setUserName] = useState<string>("");
   const [authChecking, setAuthChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [englishLevel, setEnglishLevel] = useState<string>("Intermediate");
   const [learningObjective, setLearningObjective] = useState<string>("Daily Conversation");
   const [dailyChallengeCompleted, setDailyChallengeCompleted] = useState(false);
@@ -129,9 +131,11 @@ export default function Dashboard() {
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
-          router.push("/login");
+          setIsAuthenticated(false);
+          setAuthChecking(false);
           return;
         }
+        setIsAuthenticated(true);
 
         // Puxa informações do profile do usuário logado
         const { data: profile, error: profileErr } = await supabase
@@ -397,6 +401,10 @@ export default function Dashboard() {
         </div>
       </div>
     );
+  }
+
+  if (isAuthenticated === false) {
+    return <LandingPage />;
   }
 
   return (
