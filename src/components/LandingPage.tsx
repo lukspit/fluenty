@@ -184,13 +184,9 @@ export default function LandingPage() {
             Fale inglês com a mesma <span className="text-brand-neon">confiança e autoridade</span> que você tem em português
           </h1>
           
-          <h2 className="text-base sm:text-lg md:text-xl font-extrabold text-slate-200 leading-snug max-w-xl mx-auto">
-            — em menos de 30 dias, sem precisar decorar regras de gramática ou fazer intercâmbio.
+          <h2 className="text-base sm:text-lg md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto">
+            — em menos de 30 dias, praticando sozinho de forma 100% privada, sem decorar gramática ou gastar com intercâmbio caro.
           </h2>
-          
-          <p className="text-xs sm:text-sm text-brand-textMuted max-w-lg mx-auto leading-relaxed font-medium">
-            Descubra como o Método Fluenty de simulações com IA treina o seu cérebro para responder rápido e com naturalidade em reuniões de negócios, apresentações e entrevistas de emprego.
-          </p>
         </div>
 
         {/* VSL Player (9:16 Vertical Container with Premium Holographic Glow) */}
