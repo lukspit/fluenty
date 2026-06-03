@@ -183,7 +183,7 @@ export default function LandingPage() {
       </header>
 
       {/* Main Content Container */}
-      <main className="max-w-4xl mx-auto px-6 pt-6 md:pt-10 pb-24 relative z-10 flex flex-col items-center">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 md:pt-10 pb-24 relative z-10 flex flex-col items-center">
         
         {/* Headline Section */}
         <div className="text-center space-y-5 max-w-3xl mb-6">
@@ -191,11 +191,11 @@ export default function LandingPage() {
             <SparklesIcon size={10} className="animate-pulse text-brand-neon" /> JÁ ENTENDE INGLÊS, MAS TRAVA AO FALAR?
           </span>
           
-          <h1 className="text-[27px] sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl mx-auto">
+          <h1 className="text-[26px] xs:text-[28px] sm:text-4xl md:text-5xl font-black text-white leading-[1.15] tracking-tighter max-w-2xl mx-auto">
             Fale inglês com a mesma <span className="text-brand-neon">confiança e autoridade</span> que você tem em português
           </h1>
           
-          <h2 className="text-sm sm:text-base md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto mt-4">
+          <h2 className="text-sm sm:text-base md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto mt-4.5">
             — em menos de 30 dias, praticando sozinho, sem decorar gramática ou gastar com intercâmbio.
           </h2>
           
