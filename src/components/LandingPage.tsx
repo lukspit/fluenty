@@ -172,10 +172,10 @@ export default function LandingPage() {
       </header>
 
       {/* Main Content Container */}
-      <main className="max-w-4xl mx-auto px-6 pt-12 md:pt-20 pb-24 relative z-10 flex flex-col items-center">
+      <main className="max-w-4xl mx-auto px-6 pt-6 md:pt-10 pb-24 relative z-10 flex flex-col items-center">
         
         {/* Headline Section */}
-        <div className="text-center space-y-6 max-w-3xl mb-12">
+        <div className="text-center space-y-5 max-w-3xl mb-6">
           <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-brand-neon bg-brand-neon/10 border border-brand-neon/15 px-4 py-1.5 rounded-full">
             <SparklesIcon size={10} className="animate-pulse text-brand-neon" /> PARA QUEM JÁ ENTENDE INGLÊS, MAS TRAVA NA HORA DE FALAR
           </span>
@@ -185,8 +185,15 @@ export default function LandingPage() {
           </h1>
           
           <h2 className="text-base sm:text-lg md:text-xl font-extrabold text-slate-200 leading-snug max-w-2xl mx-auto">
-            — em menos de 30 dias, praticando sozinho de forma 100% privada, sem decorar gramática ou gastar com intercâmbio caro.
+            — em menos de 30 dias, praticando sozinho, sem decorar gramática ou gastar com intercâmbio caro.
           </h2>
+          
+          {/* Indicador de Seta apontando para a VSL */}
+          <div className="flex flex-col items-center gap-1 text-brand-neon/70 animate-bounce pt-2 pointer-events-none">
+            <svg className="w-5 h-5 text-brand-neon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
 
         {/* VSL Player (9:16 Vertical Container with Premium Holographic Glow) */}
