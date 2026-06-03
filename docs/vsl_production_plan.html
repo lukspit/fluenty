@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Produção VSL - Fluenty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        title: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#080B10',
+                            card: '#121620',
+                            border: '#1E2533',
+                            neon: '#CCFF00',
+                            neonHover: '#B2E000',
+                            textMuted: '#94A3B8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080B10;
+        }
+        .title-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080B10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E2533;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CCFF00;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen pb-20">
+
+    <!-- Top Glow Effect -->
+    <div class="absolute w-[500px] h-[500px] bg-[#CCFF00]/5 rounded-full blur-[120px] -top-80 left-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 pt-12 relative z-10">
+        
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row md:items-center justify-between border-b border-brand-border pb-8 mb-10 gap-4">
+            <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-brand-neon bg-brand-neon/10 border border-brand-neon/20 px-3 py-1 rounded-full">
+                    Produção VSL Premium
+                </span>
+                <h1 class="text-3xl title-font font-black tracking-tight text-white mt-3">
+                    Plano de Imagens Detalhado (0:40 - 5:30)
+                </h1>
+                <p class="text-sm text-brand-textMuted mt-1">
+                    Cenas de curtíssima duração, prompts ultra-específicos e não-genéricos para evitar repetições e prender a atenção.
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <div class="bg-brand-card border border-brand-border px-4 py-2.5 rounded-xl text-center">
+                    <span class="text-[10px] uppercase font-bold text-brand-textMuted block">Cenas Novas</span>
+                    <span class="text-lg font-extrabold text-brand-neon title-font">22 Cenas</span>
+                </div>
+                <div class="bg-brand-card border border-brand-border px-4 py-2.5 rounded-xl text-center">
+                    <span class="text-[10px] uppercase font-bold text-brand-textMuted block">Formato</span>
+                    <span class="text-lg font-extrabold text-white title-font">9:16 Vertical</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Instructions Banner -->
+        <section class="bg-brand-card/50 border border-brand-border rounded-2xl p-6 mb-12 backdrop-blur-md">
+            <h2 class="text-base title-font font-bold text-white flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-neon animate-pulse"></span>
+                Melhorias Aplicadas nesta Versão:
+            </h2>
+            <ul class="text-xs text-brand-textMuted mt-3 space-y-2 list-disc list-inside">
+                <li><strong class="text-slate-200">Sem Imagens Genéricas:</strong> Prompts reescritos com descrições mecânicas, texturas, foco de câmera e direção artística clara para a IA.</li>
+                <li><strong class="text-slate-200">Divisão do Cérebro Corrigida:</strong> Cenários separados para Área de Wernicke (Input) e Área de Broca (Output) com prompts altamente visuais e anatômicos.</li>
+                <li><strong class="text-slate-200">Mais Dinâmica:</strong> Nenhuma imagem fica mais de 6 a 8 segundos na tela.</li>
+            </ul>
+        </section>
+
+        <!-- Scenes Container -->
+        <div class="space-y-6">
+
+            <!-- Cena 6 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">0:40 - 0:46</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 6: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Assim que a reunião acaba, vem aquela frustração misturada com um leve sentimento de humilhação."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Zoom focado nas mãos de um homem fechando abruptamente a tampa de um laptop em uma mesa de madeira escura.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up photography of a man's hands slamming shut the screen of a black laptop on a dark wooden desk. Shadowy background, sharp green light highlighting the keyboard edges, dramatic high contrast, photorealistic --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up photography of a man\'s hands slamming shut the screen of a black laptop on a dark wooden desk. Shadowy background, sharp green light highlighting the keyboard edges, dramatic high contrast, photorealistic --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 7 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">0:46 - 0:52</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 7: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Você sabe que tem o conhecimento, você tá ali… entendendo tudo que tão falando."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Close nos olhos de uma pessoa piscando devagar, com reflexo da interface de chamada do Zoom brilhando na pupila.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Macro shot of a man's green eye, showing extreme detail of the iris, reflecting a grid of online meeting faces. Dark environment, neon lime green ambient illumination on the skin texture, cinematic look --ar 9:16</span>
+                            <button onclick="copyToClipboard('Macro shot of a man\'s green eye, showing extreme detail of the iris, reflecting a grid of online meeting faces. Dark environment, neon lime green ambient illumination on the skin texture, cinematic look --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 8 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">0:52 - 0:58</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 8: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Mas, na hora de falar com outras pessoas te olhando... você trava."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Visão em primeira pessoa de uma câmera de webcam. Vários avatares de reuniões internacionais desfocados olhando fixamente para a tela.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Point-of-view webcam perspective of an online team video call. Twelve international coworkers on screen looking directly at the camera with expectance, shallow depth of field, moody corporate office background, neon green border overlay --ar 9:16</span>
+                            <button onclick="copyToClipboard('Point-of-view webcam perspective of an online team video call. Twelve international coworkers on screen looking directly at the camera with expectance, shallow depth of field, moody corporate office background, neon green border overlay --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 9 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">0:58 - 1:05</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 9: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Se isso acontece contigo, tu precisa saber que o problema não é a tua inteligência... eu já estive exatamente nesse mesmo lugar..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Homem olhando para o espelho do banheiro à noite com uma luz neon chumbo e verde-limão vindo do fundo, expressão pensativa.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Cinematic shot of a man staring at his reflection in a dark bathroom mirror. Moody high contrast lighting, black charcoal walls, soft lime green neon backlighting, realistic skin details, emotional reflection --ar 9:16</span>
+                            <button onclick="copyToClipboard('Cinematic shot of a man staring at his reflection in a dark bathroom mirror. Moody high contrast lighting, black charcoal walls, soft lime green neon backlighting, realistic skin details, emotional reflection --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 10 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:05 - 1:12</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 10: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...e passei anos acreditando que se eu estudasse mais gramática, se eu fizesse mais exercícios no duolingo..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Mão segurando um celular no escuro, exibindo um aplicativo de idiomas repetitivo de preencher lacunas com palavras simples.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up on a hand holding a glowing smartphone screen displaying a gamified language learning app with simple flashcards. Pitch black room, dramatic green neon backlight casting on the fingers, sharp focus --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up on a hand holding a glowing smartphone screen displaying a gamified language learning app with simple flashcards. Pitch black room, dramatic green neon backlight casting on the fingers, sharp focus --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 11 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:12 - 1:18</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 11: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...ou se eu assistisse a mais vídeos com legenda em inglês no YouTube, uma hora aquela chavinha ia virar."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Dedos navegando rapidamente por uma lista interminável de vídeos do YouTube com legenda amarela na tela.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">POV shot of fingers scrolling through a video feed with bright yellow subtitles on screen, dimly lit laptop keyboard visible in the background, sharp neon green ambient light, cinematic --ar 9:16</span>
+                            <button onclick="copyToClipboard('POV shot of fingers scrolling through a video feed with bright yellow subtitles on screen, dimly lit laptop keyboard visible in the background, sharp neon green ambient light, cinematic --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 12 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:18 - 1:26</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 12: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Gastei tempo, dinheiro e energia em cursos tradicionais que prometiam fluência em tempo recorde."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Diretrizes & Prompt</span>
+                        <p class="text-xs text-brand-textMuted">
+                            <strong class="text-slate-200">Visual:</strong> Notas de R$ 100 se desintegrando no escuro em faíscas verdes-limão de dados de computador.
+                        </p>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">3D Brazilian Real banknotes dissolving into green glowing neon digital dust particles, fading into a pitch black dark environment, clean motion graphics, high-contrast --ar 9:16</span>
+                            <button onclick="copyToClipboard('3D Brazilian Real banknotes dissolving into green glowing neon digital dust particles, fading into a pitch black dark environment, clean motion graphics, high-contrast --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 13 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:26 - 1:34</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 13: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Mas a história foi sempre a mesma… uma sala com 15 pessoas, onde eu falava por 2 minutos repetindo frases prontas..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Bored classroom of adults sitting in rows of modern school desks, looking disengaged. A teacher stands at a whiteboard writing simple English exercises. Moody lighting, dark charcoal theme with a single neon green backlight behind the teacher, photorealistic --ar 9:16</span>
+                            <button onclick="copyToClipboard('Bored classroom of adults sitting in rows of modern school desks, looking disengaged. A teacher stands at a whiteboard writing simple English exercises. Moody lighting, dark charcoal theme with a single neon green backlight behind the teacher, photorealistic --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 14 (O Cérebro - Região de Wernicke) -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:42 - 1:52</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 14: Imagem</span>
+                    </div>
+                    <span class="text-xs text-brand-neon font-extrabold uppercase">Cérebro: Wernicke (Input)</span>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Cientificamente, o teu cérebro usa duas áreas completamente diferentes... A primeira é responsável por receber e processar o idioma (Input)."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">An artistic 3D rendering of a human brain in side-profile. The temporal lobe (Wernicke's area) is glowing intensely with complex networks of glowing green neon data lines, symbols, and tiny floating icons of books, headphones, and text documents. The rest of the brain is dark gray. Cinematic lighting, black background, photorealistic texture --ar 9:16</span>
+                            <button onclick="copyToClipboard('An artistic 3D rendering of a human brain in side-profile. The temporal lobe (Wernicke\'s area) is glowing intensely with complex networks of glowing green neon data lines, symbols, and tiny floating icons of books, headphones, and text documents. The rest of the brain is dark gray. Cinematic lighting, black background, photorealistic texture --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 15 (O Cérebro - Região de Broca) -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">1:52 - 2:02</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 15: Imagem</span>
+                    </div>
+                    <span class="text-xs text-red-400 font-extrabold uppercase">Cérebro: Broca (Output)</span>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "A segunda é responsável pela produção do idioma e pela coordenação dos músculos da fala. É ela que você usa para gerar frases (Output)."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">An artistic 3D rendering of a human brain in side-profile. The frontal lobe (Broca's area) is highlighted with dim, unlit neural paths, showing inactivity, while a single neon green pulse tries to travel through it. Dark moody lighting, high contrast, black background, ultra-detailed --ar 9:16</span>
+                            <button onclick="copyToClipboard('An artistic 3D rendering of a human brain in side-profile. The frontal lobe (Broca\'s area) is highlighted with dim, unlit neural paths, showing inactivity, while a single neon green pulse tries to travel through it. Dark moody lighting, high contrast, black background, ultra-detailed --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 16 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:02 - 2:08</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 16: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Ou seja, falar inglês não é um conhecimento teórico que você decora. É uma habilidade motora e neurológica."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Slow motion capture of electrical pulses traveling instantly through neural pathways inside a human nervous system. High-tech, dark mode background, neon lime green glow, extreme micro details --ar 9:16</span>
+                            <button onclick="copyToClipboard('Slow motion capture of electrical pulses traveling instantly through neural pathways inside a human nervous system. High-tech, dark mode background, neon lime green glow, extreme micro details --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 17 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:08 - 2:15</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 17: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "É igual a nadar, você pode ler 50 livros sobre natação, mas se te jogarem na piscina, você vai se afogar."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">High-speed action photography of a swimmer diving into a dark pool with underwater neon lime green lights, bubbles and water splashes, cinematic composition --ar 9:16</span>
+                            <button onclick="copyToClipboard('High-speed action photography of a swimmer diving into a dark pool with underwater neon lime green lights, bubbles and water splashes, cinematic composition --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 18 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:15 - 2:24</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 18: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "O motivo de você travar nas reuniões é basicamente porque você tenta fazer a tradução lógica na hora de falar."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Macro shot of a man's mouth attempting to speak, lips frozen in tension, dark shadows, moody neon green backlight outlining the jawline, dramatic high contrast --ar 9:16</span>
+                            <button onclick="copyToClipboard('Macro shot of a man\'s mouth attempting to speak, lips frozen in tension, dark shadows, moody neon green backlight outlining the jawline, dramatic high contrast --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 19 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:24 - 2:32</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 19: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "E o cérebro não aguenta esse peso de traduzir e falar ao mesmo tempo. O que você precisa é de reflexos automáticos."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up of heavy dark steel machinery gears grinding to a halt, emitting bright neon green sparks and smoke, pitch black background, cinematic, photorealistic --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up of heavy dark steel machinery gears grinding to a halt, emitting bright neon green sparks and smoke, pitch black background, cinematic, photorealistic --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 20 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:32 - 2:40</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 20: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "E você só desenvolve isso gerando respostas livres sob pressão. Pra destravar a fala de uma vez por todas..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Slow motion capture of lightning-fast green neon electric currents running through microchips on a dark motherboard, tech, cybernetic background --ar 9:16</span>
+                            <button onclick="copyToClipboard('Slow motion capture of lightning-fast green neon electric currents running through microchips on a dark motherboard, tech, cybernetic background --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 21 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:40 - 2:50</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 21: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...você precisa de um ambiente que siga três regras fundamentais. Primeiro, você precisa ser forçado a falar de forma livre..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up of a high-tech glass interactive terminal screen in a dark control room, displaying a clean dark interface with 3 checklist items glowing in vibrant neon green --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up of a high-tech glass interactive terminal screen in a dark control room, displaying a clean dark interface with 3 checklist items glowing in vibrant neon green --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 22 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">2:50 - 3:00</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 22: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Segundo, tu precisa errar sem medo de ser julgado, sem sentir vergonha... E terceiro, correção imediata e cirúrgica..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Sleek obsidian black humanoid robot face talking softly, lips moving in slow motion, fluid neon green digital soundwaves radiating from its mouth, dark cybernetic background --ar 9:16</span>
+                            <button onclick="copyToClipboard('Sleek obsidian black humanoid robot face talking softly, lips moving in slow motion, fluid neon green digital soundwaves radiating from its mouth, dark cybernetic background --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 23 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:00 - 3:08</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 23: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "E a boa notícia? A revolução da Inteligência Artificial nos deu a ferramenta que precisávamos para criar tudo isso."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Abstract premium 3D design of the letters "AI" made of dark glass and chrome, glowing with lime green light borders, black background, high-contrast, professional --ar 9:16</span>
+                            <button onclick="copyToClipboard('Abstract premium 3D design of the letters \'AI\' made of dark glass and chrome, glowing with lime green light borders, black background, high-contrast, professional --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 24 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:08 - 3:18</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 24: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Foi por isso que nós criamos o Fluenty. E pode ficar tranquilo, isso aqui não é um curso de inglês tradicional..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Old English grammar textbooks stacked and discarded in a dark dumpster. High-contrast shadows, cinematic green neon light cast over the scene --ar 9:16</span>
+                            <button onclick="copyToClipboard('Old English grammar textbooks stacked and discarded in a dark dumpster. High-contrast shadows, cinematic green neon light cast over the scene --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 25 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:18 - 3:28</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 25: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "O Fluenty é um método prático de treino ativo. E nós empacotamos todo o funcionamento e a lógica disso em 4 aulas..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">3D render of a premium smartphone floating in a dark space, displaying a glassmorphic dashboard with 4 clean vertical course modules, soft neon green glow --ar 9:16</span>
+                            <button onclick="copyToClipboard('3D render of a premium smartphone floating in a dark space, displaying a glassmorphic dashboard with 4 clean vertical course modules, soft neon green glow --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 26 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:28 - 3:36</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 26: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Nesse treinamento, que você pode assistir inteiro ainda esta semana, nós vamos abrir a caixa preta dessa metodologia..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">A futuristic black metallic cube opening up in slow motion, intense beams of neon lime green light and data streams emitting from within, dark background, 8k --ar 9:16</span>
+                            <button onclick="copyToClipboard('A futuristic black metallic cube opening up in slow motion, intense beams of neon lime green light and data streams emitting from within, dark background, 8k --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 27 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:36 - 3:44</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 27: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...e te entregar o mapa prático de como aplicar isso na sua vida."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Digital neon green grid lines drawing a map of pathways over a dark abstract terrain, high-tech blueprint visualization, cinematic slow motion, 8k --ar 9:16</span>
+                            <button onclick="copyToClipboard('Digital neon green grid lines drawing a map of pathways over a dark abstract terrain, high-tech blueprint visualization, cinematic slow motion, 8k --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 28 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:44 - 3:55</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 28: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "É um treinamento focado em te dar o direcionamento, a clareza e os truques que os métodos tradicionais nunca te deram."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">A glass sphere on a dark surface reflecting clear and sharp neon green lines. Dark chumbo background, cinematic moody lighting, shallow depth of field --ar 9:16</span>
+                            <button onclick="copyToClipboard('A glass sphere on a dark surface reflecting clear and sharp neon green lines. Dark chumbo background, cinematic moody lighting, shallow depth of field --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 29 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">3:55 - 4:10</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 29: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "É o atalho mais moderno que temos para a fluência no inglês."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Slow motion zoom-out of a futuristic neon lime green straight line highway cutting through dark blocky matrix geometry, clean and fast motion graphics, 8k --ar 9:16</span>
+                            <button onclick="copyToClipboard('Slow motion zoom-out of a futuristic neon lime green straight line highway cutting through dark blocky matrix geometry, clean and fast motion graphics, 8k --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 30 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">4:10 - 4:25</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 30: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "E pra que essa decisão de destravar a tua carreira seja a coisa mais fácil... eu quero reforçar a sua garantia incondicional de 7 dias."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Minimalist 3D render of a premium guarantee badge, frosted glass texture, glowing neon green metallic frame, showing "7" in clean font, elegant dark background --ar 9:16</span>
+                            <button onclick="copyToClipboard('Minimalist 3D render of a premium guarantee badge, frosted glass texture, glowing neon green metallic frame, showing \"7\" in clean font, elegant dark background --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 31 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">4:25 - 4:40</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 31: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Se você pagar, assistir as aulas e achar que o que eu te ensinei não valeu o investimento, basta mandar um único email..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up of hands typing an email on a modern dark metallic laptop keyboard, computer screen casting soft green neon light, cozy dark home office, shallow depth of field --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up of hands typing an email on a modern dark metallic laptop keyboard, computer screen casting soft green neon light, cozy dark home office, shallow depth of field --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 32 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">4:40 - 4:55</span>
+                        <span class="bg-brand-neon/10 text-brand-neon border border-brand-neon/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 32: Imagem</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "Então, tu tem dois caminhos agora. Continuar no mesmo ciclo de frustração..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Split screen vertical composition. Left half: Stressed man in a dim gray office looking down, sighing. Right half: Same man smiling, speaking confidently on a video conference call illuminated in soft neon green light. High-contrast --ar 9:16</span>
+                            <button onclick="copyToClipboard('Split screen vertical composition. Left half: Stressed man in a dim gray office looking down, sighing. Right half: Same man smiling, speaking confidently on a video conference call illuminated in soft neon green light. High-contrast --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 33 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">4:55 - 5:10</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 33: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...ou dar o primeiro passo prático, clicar no botão aqui abaixo e descobrir como destravar a sua fala profissional..."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Close-up of a human finger about to touch a glowing green neon interactive button on a dark glass screen, creating a subtle neon ripple effect, cinematic macro shot --ar 9:16</span>
+                            <button onclick="copyToClipboard('Close-up of a human finger about to touch a glowing green neon interactive button on a dark glass screen, creating a subtle neon ripple effect, cinematic macro shot --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cena 34 -->
+            <div class="bg-brand-card border border-brand-border hover:border-brand-neon/30 transition duration-300 rounded-2xl p-6 relative overflow-hidden group">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-brand-border/40 pb-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-black title-font">5:10 - 5:30</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide">Cena 34: Vídeo</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-2">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Áudio da Copy</span>
+                        <p class="text-sm font-medium text-white italic leading-relaxed">
+                            "...de uma vez por todas usando IA de forma estratégica."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-3">
+                        <span class="text-[10px] font-bold text-brand-textMuted uppercase tracking-widest block">Prompt de Imagem (Copiar e colar)</span>
+                        <div class="bg-brand-dark/60 rounded-xl p-3 border border-brand-border flex items-center justify-between gap-2">
+                            <span class="text-xs font-mono text-brand-neon break-all select-all">Minimalist dark screen with the text "Fluenty" pulsing in a glowing white title-font, clean neon lime green subtitle below reading "Speak Up!", modern luxury tech aesthetic --ar 9:16</span>
+                            <button onclick="copyToClipboard('Minimalist dark screen with the text \"Fluenty\" pulsing in a glowing white title-font, clean neon lime green subtitle below reading \"Speak Up!\", modern luxury tech aesthetic --ar 9:16', this)" class="bg-brand-border hover:bg-brand-neon/20 hover:text-brand-neon transition text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shrink-0">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider text-xs px-5 py-3 rounded-xl shadow-2xl transition duration-300 translate-y-20 opacity-0 z-50">
+        Prompt copiado!
+    </div>
+
+    <script>
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+                
+                const oldText = button.innerText;
+                button.innerText = 'Copiado!';
+                button.classList.add('bg-brand-neon/30', 'text-brand-neon');
+                
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                    
+                    button.innerText = oldText;
+                    button.classList.remove('bg-brand-neon/30', 'text-brand-neon');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

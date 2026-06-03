@@ -4,26 +4,43 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { SparklesIcon, CheckIcon, ChevronRightIcon, ZapIcon } from "@/components/Icons";
 
-const PRODUCT_PRICE = "27,00"; // Fácil de alterar caso queira testar R$37 ou R$47
+declare global {
+  interface Window {
+    onYouTubeIframeAPIReady: (() => void) | undefined;
+    YT: any;
+  }
+}
+
+const PRODUCT_PRICE = "27,00";
 const CHECKOUT_URL = "https://pay.kiwify.com.br/lvlsx68";
+const YOUTUBE_VIDEO_ID = "FqkMu2dD5kE";
 
 export default function LandingPage() {
   const [showOffer, setShowOffer] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<any>(null);
+  const intervalRef = useRef<any>(null);
 
-  // Monitora o tempo do vídeo para revelar a oferta aos 4m30s (270 segundos)
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const currentTime = videoRef.current.currentTime;
-      if (currentTime >= 270 && !showOffer) {
-        triggerReveal();
+  // Inicia a verificação de tempo do vídeo
+  const startTracking = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (playerRef.current && typeof playerRef.current.getCurrentTime === "function") {
+        const currentTime = playerRef.current.getCurrentTime();
+        // Revela a oferta quando o vídeo passa de 4m30s (270 segundos)
+        if (currentTime >= 270) {
+          triggerReveal();
+          stopTracking();
+        }
       }
-    }
+    }, 1000);
   };
 
-  const handleVideoEnded = () => {
-    triggerReveal();
+  const stopTracking = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   };
 
   const triggerReveal = () => {
@@ -31,22 +48,76 @@ export default function LandingPage() {
     localStorage.setItem("vsl_revealed", "true");
   };
 
-  // Carrega bypass para testes rápidos (se tiver ?reveal=true na URL ou já tiver visto antes)
+  const resetReveal = () => {
+    localStorage.removeItem("vsl_revealed");
+    setShowOffer(false);
+    if (playerRef.current && typeof playerRef.current.seekTo === "function") {
+      playerRef.current.seekTo(0);
+      playerRef.current.playVideo();
+    }
+  };
+
+  // Carrega e inicializa a API do YouTube
+  useEffect(() => {
+    const initPlayer = () => {
+      if (playerRef.current) return;
+      
+      playerRef.current = new window.YT.Player("vsl-youtube-player", {
+        height: "100%",
+        width: "100%",
+        videoId: YOUTUBE_VIDEO_ID,
+        playerVars: {
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1,
+          controls: 1,
+          origin: typeof window !== "undefined" ? window.location.origin : ""
+        },
+        events: {
+          onStateChange: (event: any) => {
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              startTracking();
+            } else {
+              stopTracking();
+            }
+            if (event.data === window.YT.PlayerState.ENDED) {
+              triggerReveal();
+            }
+          }
+        }
+      });
+    };
+
+    // Insere o script da Iframe API se já não estiver no DOM
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    }
+
+    // Vincula a callback global que o YouTube executa ao carregar
+    window.onYouTubeIframeAPIReady = () => {
+      initPlayer();
+    };
+
+    // Caso a API já tenha carregado anteriormente
+    if (window.YT && window.YT.Player) {
+      initPlayer();
+    }
+
+    return () => {
+      stopTracking();
+    };
+  }, []);
+
+  // Verifica se o usuário já liberou a oferta anteriormente
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("reveal") === "true" || localStorage.getItem("vsl_revealed") === "true") {
       setShowOffer(true);
     }
   }, []);
-
-  const resetReveal = () => {
-    localStorage.removeItem("vsl_revealed");
-    setShowOffer(false);
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    }
-  };
 
   const faqs = [
     {
@@ -118,16 +189,7 @@ export default function LandingPage() {
 
         {/* VSL Player (9:16 Vertical Container) */}
         <div className="w-full max-w-sm aspect-[9/16] bg-brand-card/90 rounded-3xl border border-brand-border shadow-2xl relative overflow-hidden flex items-center justify-center group mb-8">
-          <video
-            ref={videoRef}
-            src="/assets/vsl_video.mp4" // O usuário insere o vídeo editado aqui
-            className="w-full h-full object-cover"
-            controls
-            playsInline
-            onTimeUpdate={handleTimeUpdate}
-            onEnded={handleVideoEnded}
-            poster="/assets/vsl_poster.png" // Opcional: imagem de capa
-          />
+          <div id="vsl-youtube-player" className="w-full h-full rounded-2xl" />
         </div>
 
         <p className="text-[10px] text-brand-textMuted uppercase tracking-widest font-bold mb-12 flex items-center gap-2">
@@ -256,13 +318,8 @@ export default function LandingPage() {
 
             {/* Garantia */}
             <div className="bg-brand-card/50 border border-brand-border rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6">
-              <div className="w-20 h-20 relative shrink-0">
-                <Image 
-                  src="/assets/vsl_poster.png" // Placeholder ou imagem do selo de garantia
-                  alt="Selo 7 dias"
-                  fill
-                  className="object-cover rounded-full border border-brand-neon/30"
-                />
+              <div className="w-20 h-20 relative shrink-0 bg-brand-neon/15 border border-brand-neon/30 rounded-full flex items-center justify-center">
+                <span className="text-brand-neon font-black text-xs text-center leading-none">7 DIAS<br/>GARANTIA</span>
               </div>
               <div className="space-y-2 text-center md:text-left">
                 <h4 className="text-sm font-extrabold uppercase text-white tracking-wider">Compromisso de Risco Zero</h4>
